@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VintageVroom - Complete Classic Motorcycle Spare Part Shop & Marketplace. Find carburetors, exhausts, engines, electricals for RX-King, CB100, Vespa, Binter Merzy, etc.">
+    <title>VintageVroom | Complete & Trusted Classic Motorcycle Spare Parts</title>
+    <!-- Fonts & Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+
+    <!-- ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== -->
+    <header class="header">
+        <div class="container navbar">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-motorcycle"></i> VintageVroom
+            </a>
+
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="pages/public/produk.html" class="nav-link">Catalog</a>
+                <a href="pages/public/artikel.html" class="nav-link">Articles</a>
+                <a href="pages/public/history.html" class="nav-link">Track Order</a>
+                <a href="pages/public/login.html" class="btn btn-sm btn-outline nav-admin-btn">
+                    <i class="fa-solid fa-user-shield"></i> Admin Panel
+                </a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="pages/public/keranjang.html" class="cart-icon-btn" title="Shopping Cart">
+                    <i class="fa-solid fa-toolbox"></i>
+                    <span class="cart-badge" style="display: none;">0</span>
+                </a>
+                <button class="hamburger" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+       HERO SECTION
+       ========================================================================== -->
+    <section class="section hero-section" style="background: linear-gradient(rgba(22, 15, 6, 0.85), rgba(22, 15, 6, 0.95)), url('assets/images/hero-bg.jpg') no-repeat center center/cover; padding: var(--spacing-3xl) 0; border-bottom: 2px solid var(--color-border); text-align: center;">
+        <div class="container reveal">
+            <span class="badge badge-primary mb-3"><i class="fa-solid fa-wrench"></i> True Classic Motorcycle Restoration</span>
+            <h1 class="mb-4" style="font-size: clamp(2rem, 5vw, 3.5rem); text-transform: uppercase; line-height: 1.1; letter-spacing: -1px;">
+                Find New Life for <span class="text-primary">Your Classic Motorcycle</span>
+            </h1>
+            <p class="text-muted mb-5" style="max-width: 650px; margin-left: auto; margin-right: auto; font-size: clamp(1rem, 2vw, 1.2rem);">
+                Shop for spare parts, accessories, and engine components specifically for your beloved antique motorcycle. High quality, precise, and trusted.
+            </p>
+            <div class="hero-ctas" style="display: flex; gap: var(--spacing-md); justify-content: center; flex-wrap: wrap;">
+                <a href="pages/public/produk.html" class="btn btn-primary btn-lg">
+                    <i class="fa-solid fa-magnifying-glass"></i> Explore Spare Parts
+                </a>
+                <a href="pages/public/artikel.html" class="btn btn-secondary btn-lg">
+                    <i class="fa-solid fa-book-open"></i> Tips & Maintenance
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       CATEGORY QUICK LINKS
+       ========================================================================== -->
+    <section class="section category-section">
+        <div class="container">
+            <div class="section-title-center">
+                <h2>Spare Part Categories</h2>
+                <p class="text-muted">Find specific components according to your retro motorcycle part needs</p>
+            </div>
+            
+            <div class="grid grid-4 mt-5" id="category-grid-container" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       FEATURED PRODUCTS
+       ========================================================================== -->
+    <section class="section featured-products" style="background-color: rgba(22, 15, 6, 0.5); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Products</h2>
+            </div>
+            
+            <div class="grid grid-4 mt-5" id="featured-products-container">
+                <!-- Populated dynamically via JS -->
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="pages/public/produk.html" class="btn btn-outline">
+                    View All Products <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       STRENGTHS & VALUES
+       ========================================================================== -->
+    <section class="section values-section">
+        <div class="container">
+            <div class="grid grid-3 text-center">
+                <div class="value-card reveal" style="padding: var(--spacing-xl); background-color: var(--color-surface-card); border: 1px solid var(--color-border); border-radius: var(--radius-md);">
+                    <div class="value-icon" style="font-size: 2.5rem; color: var(--color-primary); margin-bottom: var(--spacing-md);">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                    </div>
+                    <h3 class="mb-3">Compatibility Guarantee</h3>
+                    <p class="text-muted" style="font-size: 0.9rem;">
+                        All parts have clear motorcycle compatibility guides (RX-King, CB100, Vespa, etc.) so they are guaranteed to fit precisely when installed.
+                    </p>
+                </div>
+                <div class="value-card reveal" style="padding: var(--spacing-xl); background-color: var(--color-surface-card); border: 1px solid var(--color-border); border-radius: var(--radius-md);">
+                    <div class="value-icon" style="font-size: 2.5rem; color: var(--color-primary); margin-bottom: var(--spacing-md);">
+                        <i class="fa-solid fa-box-open"></i>
+                    </div>
+                    <h3 class="mb-3">Best Quality & NOS</h3>
+                    <p class="text-muted" style="font-size: 0.9rem;">
+                        Providing original factory products, premium aftermarket, to rare New Old Stock (NOS) items.
+                    </p>
+                </div>
+                <div class="value-card reveal" style="padding: var(--spacing-xl); background-color: var(--color-surface-card); border: 1px solid var(--color-border); border-radius: var(--radius-md);">
+                    <div class="value-icon" style="font-size: 2.5rem; color: var(--color-primary); margin-bottom: var(--spacing-md);">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <h3 class="mb-3">Secure Delivery</h3>
+                    <p class="text-muted" style="font-size: 0.9rem;">
+                        Packaging uses extra thick bubble wrap and sturdy cardboard for free to ensure the safety of your spare parts.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       FEATURED ARTICLES / BLOG
+       ========================================================================== -->
+    <section class="section articles-section" style="background-color: rgba(22, 15, 6, 0.5); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Workshop Tips & Articles</h2>
+            </div>
+            
+            <div class="grid grid-3 mt-5" id="featured-articles-container">
+                <!-- Populated dynamically via JS -->
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="pages/public/artikel.html" class="btn btn-outline">
+                    All Articles <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 class="logo"><i class="fa-solid fa-motorcycle text-primary"></i> VintageVroom</h3>
+                    <p>Provider of spare parts, restoration accessories, and classic motorcycle engine equipment from the 70s, 80s to 90s era.</p>
+                    <div class="footer-socials">
+                        <a href="#" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Public Menu</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="pages/public/produk.html">Product Catalog</a></li>
+                        <li><a href="pages/public/artikel.html">Articles & Tips</a></li>
+                        <li><a href="pages/public/history.html">Track Order</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Popular Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="pages/public/produk.html?category=engine">Engine Components</a></li>
+                        <li><a href="pages/public/produk.html?category=carburetor">Carburetors</a></li>
+                        <li><a href="pages/public/produk.html?category=exhaust">Chrome Exhausts</a></li>
+                        <li><a href="pages/public/produk.html?category=electrical">12V Electricals</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fa-solid fa-map-location-dot"></i> Surabaya, East Java, Indonesia</li>
+                        <li><i class="fa-solid fa-phone"></i> +62 812-3456-7890</li>
+                        <li><i class="fa-solid fa-envelope"></i> info@vintagevroom.id</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 VintageVroom. Made with <i class="fa-solid fa-heart text-primary"></i> by Andy Vintage for UI Workshop Final Exam Project.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================================================
+       JAVASCRIPT
+       ========================================================================== -->
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Populate Category Quick Grid
+            const categoryContainer = document.getElementById('category-grid-container');
+            const catIcons = {
+                'engine': 'fa-gears',
+                'electrical': 'fa-bolt-lightning',
+                'exhaust': 'fa-wind',
+                'carburetor': 'fa-gauge-high',
+                'body': 'fa-motorcycle',
+                'suspension': 'fa-shield-halved',
+                'brakes': 'fa-circle-dot'
+            };
+
+            VintageVroomDB.categories.forEach(cat => {
+                const icon = catIcons[cat.id] || 'fa-screwdriver-wrench';
+                const catCard = document.createElement('a');
+                catCard.href = `pages/public/produk.html?category=${cat.id}`;
+                catCard.className = 'reveal';
+                catCard.style.cssText = `
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    padding: var(--spacing-lg);
+                    background-color: var(--color-surface-card);
+                    border: 1px solid var(--color-border);
+                    border-radius: var(--radius-md);
+                    text-align: center;
+                    transition: var(--transition-normal);
+                    color: var(--color-text);
+                `;
+
+                // Hover inline style emulator (adds visual lift)
+                catCard.addEventListener('mouseenter', () => {
+                    catCard.style.borderColor = 'var(--color-primary)';
+                    catCard.style.transform = 'translateY(-5px)';
+                    catCard.style.boxShadow = 'var(--shadow-md), var(--shadow-accent)';
+                });
+                catCard.addEventListener('mouseleave', () => {
+                    catCard.style.borderColor = 'var(--color-border)';
+                    catCard.style.transform = 'translateY(0)';
+                    catCard.style.boxShadow = 'none';
+                });
+
+                catCard.innerHTML = `
+                    <div style="width: 60px; height: 60px; border-radius: 50%; background-color: var(--color-surface); border: 1px solid var(--color-border); display: flex; align-items: center; justify-content: center; margin-bottom: var(--spacing-md); font-size: 1.5rem; color: var(--color-primary);">
+                        <i class="fa-solid ${icon}"></i>
+                    </div>
+                    <span style="font-weight: 700; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.5px;">${cat.name}</span>
+                `;
+                categoryContainer.appendChild(catCard);
+            });
+
+            // 2. Populate Featured Products (take first 4 from Storage)
+            const productsContainer = document.getElementById('featured-products-container');
+            const products = VintageVroomStorage.getProducts().slice(0, 4);
+
+            products.forEach(prod => {
+                const card = document.createElement('div');
+                card.className = 'card reveal';
+                
+                const formattedPrice = VintageVroomStorage.formatRupiah(prod.price);
+                const stockBadge = prod.stock > 0 
+                    ? `<span class="badge badge-success">Stock: ${prod.stock}</span>` 
+                    : `<span class="badge badge-danger">Out of Stock</span>`;
+
+                card.innerHTML = `
+                    <div class="card-img-wrapper">
+                        <img src="${prod.image}" alt="${prod.name}" class="card-img" onerror="this.src='https://placehold.co/400x300/2c1f0e/f5ecd7?text=${encodeURIComponent(prod.name)}'">
+                        <div class="card-badge-top">${stockBadge}</div>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">${prod.category}</span>
+                        <h3 class="card-title">${prod.name}</h3>
+                        <div class="card-compatibility">
+                            <i class="fa-solid fa-circle-info"></i> ${prod.compatibility.slice(0, 2).join(', ')}
+                        </div>
+                        <div class="card-footer">
+                            <span class="card-price">${formattedPrice}</span>
+                            <button class="btn btn-primary btn-sm add-to-cart-btn" data-id="${prod.id}">
+                                <i class="fa-solid fa-cart-plus"></i> + Cart
+                            </button>
+                        </div>
+                    </div>
+                `;
+                productsContainer.appendChild(card);
+            });
+
+            // Add Click Handlers for "Add to Cart" Buttons
+            document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const prodId = parseInt(btn.getAttribute('data-id'));
+                    const result = VintageVroomStorage.addToCart(prodId, 1);
+                    if (result.success) {
+                        VintageVroomToast.show(result.message, 'success');
+                    } else {
+                        VintageVroomToast.show(result.message, 'danger');
+                    }
+                });
+            });
+
+            // 3. Populate Featured Articles (take first 3)
+            const articlesContainer = document.getElementById('featured-articles-container');
+            const articles = VintageVroomStorage.getArticles().slice(0, 3);
+
+            articles.forEach(art => {
+                const card = document.createElement('article');
+                card.className = 'card reveal';
+
+                card.innerHTML = `
+                    <div class="card-img-wrapper">
+                        <img src="${art.thumbnail}" alt="${art.title}" class="card-img" onerror="this.src='https://placehold.co/400x250/2c1f0e/f5ecd7?text=Tips+Motor'">
+                    </div>
+                    <div class="card-content">
+                        <div style="display: flex; gap: var(--spacing-sm); margin-bottom: var(--spacing-sm); font-size: 0.75rem; color: var(--color-primary); font-weight: 700; text-transform: uppercase;">
+                            <span><i class="fa-solid fa-folder"></i> ${art.category}</span>
+                            <span>&bull;</span>
+                            <span class="text-muted"><i class="fa-solid fa-calendar"></i> ${art.date}</span>
+                        </div>
+                        <h3 class="card-title" style="font-size: 1.2rem; line-height: 1.4; margin-bottom: var(--spacing-md);">${art.title}</h3>
+                        <p class="text-muted" style="font-size: 0.9rem; line-height: 1.5; margin-bottom: var(--spacing-md); flex-grow: 1;">${art.excerpt}</p>
+                        <a href="pages/public/artikel-detail.html?slug=${art.slug}" class="btn btn-secondary btn-sm" style="align-self: flex-start; margin-top: auto;">
+                            Read More <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem;"></i>
+                        </a>
+                    </div>
+                `;
+                articlesContainer.appendChild(card);
+            });
+        });
+    </script>
+</body>
+</html>

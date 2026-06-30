@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Produk | VintageVroom Admin</title>
+    <!-- Fonts & Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/responsive.css">
+    <link rel="stylesheet" href="../../assets/css/admin.css">
+</head>
+<body>
+
+    <div class="admin-container">
+        <!-- ==========================================================================
+           ADMIN SIDEBAR
+           ========================================================================== -->
+        <aside class="admin-sidebar">
+            <div class="admin-logo-wrapper">
+                <a href="../../index.html" class="logo" style="font-size: 1.5rem;">
+                    <i class="fa-solid fa-motorcycle text-primary"></i> VintageVroom
+                </a>
+            </div>
+            
+            <div class="admin-user-profile">
+                <div class="admin-avatar">
+                    <i class="fa-solid fa-user-tie"></i>
+                </div>
+                <div>
+                    <div class="admin-user-name">Andy Vintage</div>
+                    <div class="admin-user-role">Administrator</div>
+                </div>
+            </div>
+
+            <nav class="admin-nav">
+                <a href="dashboard.html" class="admin-nav-item">
+                    <i class="fa-solid fa-chart-line"></i> Dashboard Utama
+                </a>
+                <a href="kelola-produk.html" class="admin-nav-item active">
+                    <i class="fa-solid fa-wrench"></i> Kelola Produk
+                </a>
+                <a href="kelola-artikel.html" class="admin-nav-item">
+                    <i class="fa-solid fa-file-pen"></i> Kelola Artikel
+                </a>
+                <a href="kelola-pengguna.html" class="admin-nav-item">
+                    <i class="fa-solid fa-users"></i> Kelola Pengguna
+                </a>
+                <a href="kelola-transaksi.html" class="admin-nav-item">
+                    <i class="fa-solid fa-file-invoice-dollar"></i> Kelola Transaksi
+                </a>
+            </nav>
+
+            <div class="admin-sidebar-footer">
+                <a href="#" class="admin-nav-item logout-btn" style="padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--radius-sm); border: 1px solid var(--color-border); justify-content: center; background-color: rgba(192,57,43,0.05); color: var(--color-danger);">
+                    <i class="fa-solid fa-power-off"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- ==========================================================================
+           ADMIN MAIN CONTENT
+           ========================================================================== -->
+        <main class="admin-main">
+            <!-- Header bar -->
+            <header class="admin-header">
+                <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                    <button class="menu-toggle-btn" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+                    <h2 class="admin-header-title" id="form-header-title">Tambah Produk Baru</h2>
+                </div>
+            </header>
+
+            <!-- Body Area -->
+            <div class="admin-content-body">
+                <div class="panel">
+                    <form id="product-crud-form">
+                        <div class="grid grid-2">
+                            <!-- Left columns -->
+                            <div>
+                                <div class="form-group">
+                                    <label class="form-label" for="prod-name">Nama Spare Part *</label>
+                                    <input type="text" id="prod-name" class="form-control" placeholder="Contoh: Knalpot RX King Telo..." required>
+                                </div>
+
+                                <div class="grid grid-2">
+                                    <div class="form-group">
+                                        <label class="form-label" for="prod-sku">Kode SKU *</label>
+                                        <input type="text" id="prod-sku" class="form-control" placeholder="Contoh: KN-RXK-TELO" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="prod-category">Kategori Suku Cadang *</label>
+                                        <select id="prod-category" class="form-control" required style="padding: var(--spacing-sm) var(--spacing-md);">
+                                            <!-- Dynamically populated via JS -->
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-2">
+                                    <div class="form-group">
+                                        <label class="form-label" for="prod-price">Harga Satuan (Rp) *</label>
+                                        <input type="number" id="prod-price" class="form-control" placeholder="Contoh: 180000" min="0" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="prod-stock">Stok Awal *</label>
+                                        <input type="number" id="prod-stock" class="form-control" placeholder="Contoh: 15" min="0" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="prod-image">Gambar Produk (Mock Link / URL)</label>
+                                    <input type="text" id="prod-image" class="form-control" placeholder="assets/images/products/knalpot.jpg">
+                                    <span style="font-size: 0.75rem; color: var(--color-text-muted);">Biarkan kosong untuk memakai placeholder gambar otomatis.</span>
+                                </div>
+                            </div>
+
+                            <!-- Right columns (description & compatibility checkboxes) -->
+                            <div>
+                                <div class="form-group">
+                                    <label class="form-label">Kecocokan Jenis Motor (Multi-Select) *</label>
+                                    <div id="compatibility-checkbox-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--spacing-xs); background-color: var(--color-surface); padding: var(--spacing-md); border: 1px solid var(--color-border); border-radius: var(--radius-sm); max-height: 195px; overflow-y: auto;">
+                                        <!-- Loaded via JS -->
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="prod-desc">Deskripsi Produk *</label>
+                                    <textarea id="prod-desc" class="form-control" placeholder="Tuliskan ulasan deskripsi lengkap suku cadang..." required style="min-height: 120px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Technical specification and Installation Guidelines Tabs -->
+                        <div class="grid grid-2 mt-4" style="border-top: 1px solid var(--color-border); padding-top: var(--spacing-lg);">
+                            <div class="form-group">
+                                <label class="form-label" for="prod-specs">Spesifikasi Detail / Ukuran</label>
+                                <textarea id="prod-specs" class="form-control" placeholder="Contoh: Diameter venturi 28mm, material paduan aluminium..." style="min-height: 80px;"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="prod-guide">Panduan Pemasangan Bengkel</label>
+                                <textarea id="prod-guide" class="form-control" placeholder="Contoh: Pasang pada intake karet PE28, sesuaikan pilot jet..." style="min-height: 80px;"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Actions Buttons -->
+                        <div class="admin-form-actions">
+                            <a href="kelola-produk.html" class="btn btn-secondary">Batal</a>
+                            <button type="submit" class="btn btn-primary" id="save-form-btn">Simpan Produk</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ==========================================================================
+       JAVASCRIPT CRUD CONTROLLER
+       ========================================================================== -->
+    <script src="../../assets/js/data.js"></script>
+    <script src="../../assets/js/app.js"></script>
+    <script src="../../assets/js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('product-crud-form');
+            const titleEl = document.getElementById('form-header-title');
+            const saveBtn = document.getElementById('save-form-btn');
+
+            // Form Fields
+            const nameInput = document.getElementById('prod-name');
+            const skuInput = document.getElementById('prod-sku');
+            const categorySelect = document.getElementById('prod-category');
+            const priceInput = document.getElementById('prod-price');
+            const stockInput = document.getElementById('prod-stock');
+            const imageInput = document.getElementById('prod-image');
+            const descInput = document.getElementById('prod-desc');
+            const specsInput = document.getElementById('prod-specs');
+            const guideInput = document.getElementById('prod-guide');
+            const compatListContainer = document.getElementById('compatibility-checkbox-list');
+
+            // 1. Populate category dropdown
+            VintageVroomDB.categories.forEach(cat => {
+                const opt = document.createElement('option');
+                opt.value = cat.id;
+                opt.textContent = cat.name;
+                categorySelect.appendChild(opt);
+            });
+
+            // 2. Populate compatibility check-list
+            VintageVroomDB.compatibility.forEach(motor => {
+                const label = document.createElement('label');
+                label.className = 'checkbox-label';
+                label.innerHTML = `<input type="checkbox" class="form-compat-cb" value="${motor}"> <span>${motor}</span>`;
+                compatListContainer.appendChild(label);
+            });
+
+            // 3. Detect EDIT mode vs CREATE mode
+            const urlParams = new URLSearchParams(window.location.search);
+            const editId = parseInt(urlParams.get('id'));
+            
+            const products = VintageVroomStorage.getProducts();
+            let editProduct = null;
+
+            if (!isNaN(editId)) {
+                // Edit mode
+                editProduct = products.find(p => p.id === editId);
+                if (editProduct) {
+                    titleEl.textContent = `Edit Produk: ${editProduct.sku}`;
+                    saveBtn.textContent = 'Simpan Perubahan';
+                    
+                    // Fill inputs
+                    nameInput.value = editProduct.name;
+                    skuInput.value = editProduct.sku;
+                    categorySelect.value = editProduct.category;
+                    priceInput.value = editProduct.price;
+                    stockInput.value = editProduct.stock;
+                    imageInput.value = editProduct.image;
+                    descInput.value = editProduct.description;
+                    specsInput.value = editProduct.specifications || '';
+                    guideInput.value = editProduct.guide || '';
+
+                    // Check compatibility boxes
+                    document.querySelectorAll('.form-compat-cb').forEach(cb => {
+                        if (editProduct.compatibility.includes(cb.value)) {
+                            cb.checked = true;
+                        }
+                    });
+                }
+            }
+
+            // 4. Form Submit handler
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                // Get selected motorbikes
+                const selectedMotors = [];
+                document.querySelectorAll('.form-compat-cb:checked').forEach(cb => {
+                    selectedMotors.push(cb.value);
+                });
+
+                if (selectedMotors.length === 0) {
+                    VintageVroomToast.show('Pilih minimal satu tipe kecocokan motor!', 'danger');
+                    return;
+                }
+
+                const price = parseInt(priceInput.value);
+                const stock = parseInt(stockInput.value);
+                
+                // slug helper
+                const slug = nameInput.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+                const imgPath = imageInput.value.trim() !== '' 
+                    ? imageInput.value.trim() 
+                    : `assets/images/products/${slug}.jpg`;
+
+                if (editProduct) {
+                    // Update existing
+                    editProduct.name = nameInput.value;
+                    editProduct.sku = skuInput.value;
+                    editProduct.category = categorySelect.value;
+                    editProduct.price = price;
+                    editProduct.stock = stock;
+                    editProduct.image = imgPath;
+                    editProduct.description = descInput.value;
+                    editProduct.specifications = specsInput.value;
+                    editProduct.guide = guideInput.value;
+                    editProduct.compatibility = selectedMotors;
+
+                    VintageVroomToast.show('Produk berhasil diperbarui!', 'success');
+                } else {
+                    // Create new
+                    const newId = products.reduce((max, p) => p.id > max ? p.id : max, 0) + 1;
+                    const newProd = {
+                        id: newId,
+                        name: nameInput.value,
+                        slug: slug,
+                        category: categorySelect.value,
+                        price: price,
+                        stock: stock,
+                        compatibility: selectedMotors,
+                        image: imgPath,
+                        sku: skuInput.value,
+                        description: descInput.value,
+                        specifications: specsInput.value,
+                        guide: guideInput.value
+                    };
+                    products.push(newProd);
+                    VintageVroomToast.show('Produk baru berhasil ditambahkan!', 'success');
+                }
+
+                // Save back to database
+                VintageVroomStorage.saveProducts(products);
+
+                // Redirect
+                setTimeout(() => {
+                    window.location.href = 'kelola-produk.html';
+                }, 1200);
+            });
+        });
+    </script>
+</body>
+</html>

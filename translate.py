@@ -1,0 +1,195 @@
+import os
+
+base_dir = "d:/Workshop Desain UI (smstr 4)/modul pdf/vintagevroom"
+files_to_modify = [
+    "pages/admin/dashboard.html",
+    "pages/admin/kelola-produk.html",
+    "pages/admin/produk-form.html",
+    "pages/admin/kelola-artikel.html",
+    "pages/admin/artikel-form.html",
+    "pages/admin/kelola-pengguna.html",
+    "pages/admin/kelola-transaksi.html",
+    "assets/js/app.js",
+    "assets/js/admin.js"
+]
+
+replacements = {
+    "Dashboard Admin | VintageVroom Panel": "Admin Dashboard | VintageVroom Panel",
+    "Dashboard Utama": "Main Dashboard",
+    "Kelola Produk": "Manage Products",
+    "Kelola Artikel": "Manage Articles",
+    "Kelola Pengguna": "Manage Users",
+    "Kelola Transaksi": "Manage Transactions",
+    "Keluar Panel": "Logout Panel",
+    "Dashboard Overview": "Dashboard Overview",
+    "Status Server:": "Server Status:",
+    "Total Produk": "Total Products",
+    "Total Pengguna": "Total Users",
+    "Transaksi": "Transactions",
+    "Pendapatan": "Earnings",
+    "Grafik Pendapatan 2026": "2026 Earnings Chart",
+    "Rupiah (IDR)": "Rupiah (IDR)",
+    "Peringatan Stok": "Stock Alert",
+    "Detail": "Details",
+    "Transaksi Terbaru": "Recent Transactions",
+    "Semua Transaksi": "All Transactions",
+    "Kode Order": "Order Code",
+    "Tanggal": "Date",
+    "Pelanggan": "Customer",
+    "Total Bayar": "Total Paid",
+    "Status": "Status",
+    "Seluruh stok aman terjaga 👍": "All stock is safely maintained 👍",
+    "Sisa:": "Remaining:",
+    "Pendapatan Bulanan (Rp)": "Monthly Earnings (Rp)",
+    "Januari": "January", "Februari": "February", "Maret": "March", "Mei": "May", "Juni": "June", "Juli": "July", "Agustus": "August", "Oktober": "October", "Desember": "December",
+
+    "Kelola Inventori Produk": "Manage Product Inventory",
+    "Cari Nama / SKU...": "Search Name / SKU...",
+    "Tambah Produk Baru": "Add New Product",
+    "Foto": "Photo",
+    "Nama Produk": "Product Name",
+    "Kategori": "Category",
+    "Harga": "Price",
+    "Stok": "Stock",
+    "Aksi": "Action",
+    "Inventori Kosong": "Empty Inventory",
+    "Tidak ada spare part terdaftar yang cocok dengan pencarian Anda.": "No registered spare parts match your search.",
+    "Edit Produk": "Edit Product",
+    "Hapus Produk": "Delete Product",
+    "Apakah Anda yakin ingin menghapus produk ini dari database inventori?": "Are you sure you want to delete this product from the inventory database?",
+    "Produk berhasil dihapus dari inventori!": "Product successfully deleted from inventory!",
+
+    "Form Produk": "Product Form",
+    "Nama Spare Part *": "Spare Part Name *",
+    "Contoh: Knalpot RX King Telo...": "Example: RX King Telo Exhaust...",
+    "Kode SKU *": "SKU Code *",
+    "Contoh: KN-RXK-TELO": "Example: KN-RXK-TELO",
+    "Kategori Suku Cadang *": "Spare Part Category *",
+    "Harga Satuan (Rp) *": "Unit Price (Rp) *",
+    "Contoh: 180000": "Example: 180000",
+    "Stok Awal *": "Initial Stock *",
+    "Contoh: 15": "Example: 15",
+    "Gambar Produk (Mock Link / URL)": "Product Image (Mock Link / URL)",
+    "Biarkan kosong untuk memakai placeholder gambar otomatis.": "Leave empty to use automatic image placeholder.",
+    "Kecocokan Jenis Motor (Multi-Select) *": "Motorcycle Compatibility (Multi-Select) *",
+    "Deskripsi Produk *": "Product Description *",
+    "Tuliskan ulasan deskripsi lengkap suku cadang...": "Write a complete review description of the spare part...",
+    "Spesifikasi Detail / Ukuran": "Detailed Specifications / Size",
+    "Contoh: Diameter venturi 28mm, material paduan aluminium...": "Example: 28mm venturi diameter, aluminum alloy material...",
+    "Panduan Pemasangan Bengkel": "Workshop Installation Guide",
+    "Contoh: Pasang pada intake karet PE28, sesuaikan pilot jet...": "Example: Install on PE28 rubber intake, adjust pilot jet...",
+    "Batal": "Cancel",
+    "Simpan Produk": "Save Product",
+    "Simpan Perubahan": "Save Changes",
+    "Pilih minimal satu tipe kecocokan motor!": "Select at least one motorcycle compatibility type!",
+    "Produk berhasil diperbarui!": "Product updated successfully!",
+    "Produk baru berhasil ditambahkan!": "New product added successfully!",
+
+    "Kelola Publikasi Artikel": "Manage Article Publications",
+    "Cari Judul / Penulis...": "Search Title / Author...",
+    "Tulis Artikel Baru": "Write New Article",
+    "Judul Artikel": "Article Title",
+    "Penulis": "Author",
+    "Artikel Tidak Ditemukan": "Article Not Found",
+    "Tidak ada artikel di database yang cocok dengan pencarian Anda.": "No articles in the database match your search.",
+    "Apakah Anda yakin ingin menghapus artikel ini?": "Are you sure you want to delete this article?",
+    "Artikel berhasil dihapus!": "Article deleted successfully!",
+    "Edit Artikel": "Edit Article",
+    "Hapus Artikel": "Delete Article",
+
+    "Form Artikel": "Article Form",
+    "Kategori Artikel *": "Article Category *",
+    "Tips Perawatan": "Maintenance Tips",
+    "Modifikasi": "Modification",
+    "Review Motor": "Motorcycle Review",
+    "Nama Penulis *": "Author Name *",
+    "Contoh: Andy Vintage": "Example: Andy Vintage",
+    "Status Publikasi *": "Publication Status *",
+    "Gambar Cover / Thumbnail (Mock Link / URL)": "Cover Image / Thumbnail (Mock Link / URL)",
+    "Biarkan kosong untuk memakai cover placeholder otomatis.": "Leave empty to use automatic cover placeholder.",
+    "Konten Lengkap Artikel *": "Full Article Content *",
+    "Tuliskan ulasan jurnal/artikel informatif Anda secara mendalam...": "Write your informative journal/article review in depth...",
+    "Simpan Artikel": "Save Article",
+    "Artikel baru berhasil diterbitkan!": "New article published successfully!",
+
+    "Kelola Akun Pengguna": "Manage User Accounts",
+    "Cari Pengguna...": "Search User...",
+    "Nama Lengkap": "Full Name",
+    "Alamat Email": "Email Address",
+    "Tanggal Bergabung": "Date Joined",
+    "Hak Akses": "Access Role",
+    "Pengguna Tidak Ditemukan": "User Not Found",
+    "Tidak ada akun terdaftar yang cocok dengan pencarian Anda.": "No registered accounts match your search.",
+    "Pelanggan": "Customer",
+    "Aktif": "Active",
+    "Nonaktif": "Inactive",
+    "Blokir Pengguna": "Block User",
+    "Aktifkan Pengguna": "Activate User",
+    "Blokir akun": "Block account",
+    "? Pengguna tidak akan bisa melakukan login.": "? User will not be able to login.",
+    "Aktifkan kembali akun": "Reactivate account",
+    "Status akun": "Account status",
+    "berhasil diperbarui!": "successfully updated!",
+
+    "Kelola Order & Pembayaran": "Manage Orders & Payments",
+    "Cari Order ID / Pelanggan...": "Search Order ID / Customer...",
+    "Semua Status": "All Statuses",
+    "Diproses": "Processing",
+    "Dikirim": "Shipped",
+    "Selesai": "Completed",
+    "Nama Pelanggan": "Customer Name",
+    "Metode Bayar": "Payment Method",
+    "Total Tagihan": "Total Bill",
+    "Perbarui Status": "Update Status",
+    "Transaksi Tidak Ditemukan": "Transaction Not Found",
+    "Tidak ada order masuk terdaftar yang cocok dengan filter pencarian.": "No registered incoming orders match the search filter.",
+    "Detail Transaksi": "Transaction Details",
+    "Informasi Pelanggan:": "Customer Information:",
+    "Daftar Suku Cadang Dibeli": "List of Purchased Spare Parts",
+    "Nama Part": "Part Name",
+    "Harga Satuan": "Unit Price",
+    "Jumlah": "Quantity",
+    "Subtotal": "Subtotal",
+    "Tutup": "Close",
+    "Status order": "Order status",
+    "berhasil diubah ke:": "successfully changed to:",
+
+    "Apakah Anda yakin ingin keluar dari panel administrator?": "Are you sure you want to logout from the administrator panel?",
+    "Keluar sukses! Mengalihkan...": "Logout successful! Redirecting...",
+    
+    # Status arrays and string matches
+    "'selesai', 'dikirim', 'diproses'": "'completed', 'shipped', 'processing'",
+    "'selesai'": "'completed'",
+    "'dikirim'": "'shipped'",
+    "'diproses'": "'processing'",
+    "selesai": "completed",
+    "dikirim": "shipped",
+    "diproses": "processing",
+    
+    ">Selesai<": ">Completed<",
+    ">Diproses<": ">Processing<",
+    ">Dikirim<": ">Shipped<",
+    ">Pending<": ">Pending<",
+    
+    "aktifkan": "activate",
+    "nonaktif": "inactive",
+    "aktif": "active",
+    
+    "Contoh: 5 Tips Memilih Karburator Original...": "Example: 5 Tips to Choose Original Carburetor..."
+}
+
+def translate_file(file_path):
+    path = os.path.join(base_dir, file_path)
+    with open(path, 'r', encoding='utf-8') as f:
+        content = f.read()
+    
+    for indo, eng in replacements.items():
+        content = content.replace(indo, eng)
+        
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(content)
+
+for file in files_to_modify:
+    translate_file(file)
+
+print("Done")

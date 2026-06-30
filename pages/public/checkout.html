@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Secure payment page for VintageVroom. Complete your vintage motorcycle spare parts order now.">
+    <title>Payment & Checkout | VintageVroom</title>
+    <!-- Fonts & Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/responsive.css">
+    <style>
+        .payment-option {
+            background-color: var(--color-surface-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            user-select: none;
+        }
+        .payment-option:hover {
+            border-color: var(--color-primary);
+        }
+        .payment-option.active {
+            border-color: var(--color-primary);
+            background-color: rgba(217, 123, 43, 0.05);
+            box-shadow: var(--shadow-accent);
+        }
+        .payment-option input {
+            accent-color: var(--color-primary);
+            width: 18px;
+            height: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== -->
+    <header class="header">
+        <div class="container navbar">
+            <a href="../../index.html" class="logo">
+                <i class="fa-solid fa-motorcycle"></i> VintageVroom
+            </a>
+
+            <nav class="nav-menu">
+                <a href="../../index.html" class="nav-link">Home</a>
+                <a href="produk.html" class="nav-link">Catalog</a>
+                <a href="artikel.html" class="nav-link">Articles</a>
+                <a href="history.html" class="nav-link">Track Order</a>
+                <a href="login.html" class="btn btn-sm btn-outline nav-admin-btn">
+                    <i class="fa-solid fa-user-shield"></i> Admin Panel
+                </a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="keranjang.html" class="cart-icon-btn" title="Shopping Cart">
+                    <i class="fa-solid fa-toolbox"></i>
+                    <span class="cart-badge" style="display: none;">0</span>
+                </a>
+                <button class="hamburger" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+       MAIN CONTENT - CHECKOUT PAGE
+       ========================================================================== -->
+    <main class="container section">
+        <ul class="breadcrumbs">
+            <li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="keranjang.html">Cart</a></li>
+            <li class="breadcrumb-item active">Checkout</li>
+        </ul>
+
+        <h1 class="mb-5">Shipping & Payment Form</h1>
+
+        <div class="checkout-layout" style="display: flex; gap: var(--spacing-xl); align-items: flex-start; flex-wrap: wrap;">
+            <!-- Left: Shipping Address & Payment Form -->
+            <form class="checkout-form" id="checkout-main-form" style="flex: 2; min-width: 300px;">
+                <!-- Section 1: Alamat Pengiriman -->
+                <div style="background-color: var(--color-surface-card); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--spacing-lg); margin-bottom: var(--spacing-lg);">
+                    <h3 style="font-size: 1.25rem; margin-bottom: var(--spacing-lg); color: var(--color-primary); border-bottom: 1px solid var(--color-border); padding-bottom: var(--spacing-xs);"><i class="fa-solid fa-truck"></i> Shipping Address</h3>
+                    
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label class="form-label" for="full-name">Recipient Name *</label>
+                            <input type="text" id="full-name" class="form-control" placeholder="Example: Budi Wijaya" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="phone-number">Phone Number / WhatsApp *</label>
+                            <input type="tel" id="phone-number" class="form-control" placeholder="Example: 08123456789" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email Address *</label>
+                        <input type="email" id="email" class="form-control" placeholder="Example: budi.wijaya@gmail.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="shipping-address">Full Address *</label>
+                        <textarea id="shipping-address" class="form-control" placeholder="Write down street name, house number, neighborhood, village, district, city, and postal code..." required></textarea>
+                    </div>
+                </div>
+
+                <!-- Section 2: Metode Pembayaran -->
+                <div style="background-color: var(--color-surface-card); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--spacing-lg);">
+                    <h3 style="font-size: 1.25rem; margin-bottom: var(--spacing-lg); color: var(--color-primary); border-bottom: 1px solid var(--color-border); padding-bottom: var(--spacing-xs);"><i class="fa-solid fa-wallet"></i> Payment Method</h3>
+                    
+                    <div style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
+                        <!-- Payment option 1 -->
+                        <label class="payment-option active">
+                            <input type="radio" name="payment-method-group" value="Transfer Bank BCA" checked>
+                            <i class="fa-solid fa-building-columns" style="font-size: 1.4rem; color: var(--color-primary);"></i>
+                            <div>
+                                <strong style="display: block;">BCA Bank Transfer (Virtual Account)</strong>
+                                <span class="text-muted" style="font-size: 0.8rem;">Automatic verification, no need to upload transfer proof.</span>
+                            </div>
+                        </label>
+
+                        <!-- Payment option 2 -->
+                        <label class="payment-option">
+                            <input type="radio" name="payment-method-group" value="QRIS">
+                            <i class="fa-solid fa-qrcode" style="font-size: 1.4rem; color: var(--color-primary);"></i>
+                            <div>
+                                <strong style="display: block;">QRIS (Gopay/OVO/Dana/LinkAja)</strong>
+                                <span class="text-muted" style="font-size: 0.8rem;">Pay instantly by scanning the QR code with your digital wallet.</span>
+                            </div>
+                        </label>
+
+                        <!-- Payment option 3 -->
+                        <label class="payment-option">
+                            <input type="radio" name="payment-method-group" value="COD (Bayar di Tempat)">
+                            <i class="fa-solid fa-hand-holding-dollar" style="font-size: 1.4rem; color: var(--color-primary);"></i>
+                            <div>
+                                <strong style="display: block;">Cash on Delivery (COD)</strong>
+                                <span class="text-muted" style="font-size: 0.8rem;">Pay in cash to the courier when the spare part arrives at your home.</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Right: Checkout Summary -->
+            <div class="checkout-summary" style="flex: 1; min-width: 280px; background-color: var(--color-surface-card); border: 1px solid var(--color-border); padding: var(--spacing-lg); border-radius: var(--radius-md);">
+                <h3 style="font-size: 1.2rem; margin-bottom: var(--spacing-lg); border-bottom: 2px solid var(--color-primary); padding-bottom: var(--spacing-xs); text-transform: uppercase; letter-spacing: 0.5px;">Shopping Summary</h3>
+                
+                <div style="display: flex; flex-direction: column; gap: var(--spacing-md); margin-bottom: var(--spacing-lg);" id="checkout-summary-items-list">
+                    <!-- Items populated via JS -->
+                </div>
+
+                <hr style="border: none; border-bottom: 1px solid var(--color-border); margin: var(--spacing-lg) 0;">
+
+                <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-md); font-size: 0.9rem;">
+                    <span class="text-muted">Spare Parts Subtotal</span>
+                    <span id="summary-subtotal" style="font-weight: 700;">Rp 0</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-md); font-size: 0.9rem;">
+                    <span class="text-muted">Shipping Cost</span>
+                    <span class="text-success" style="font-weight: 700;">FREE</span>
+                </div>
+
+                <hr style="border: none; border-bottom: 1px solid var(--color-border); margin: var(--spacing-md) 0;">
+
+                <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-xl); font-size: 1.25rem;">
+                    <strong>Total Bill</strong>
+                    <strong id="summary-total" class="text-primary">Rp 0</strong>
+                </div>
+
+                <button type="submit" form="checkout-main-form" class="btn btn-primary btn-block" style="height: 48px;">
+                    Confirm & Place Order <i class="fa-solid fa-circle-check"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+       SUCCESS MODAL
+       ========================================================================== -->
+    <div class="modal" id="success-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-container" style="max-width: 500px; text-align: center;">
+            <div class="modal-body" style="padding: var(--spacing-xxl);">
+                <div style="width: 80px; height: 80px; border-radius: 50%; background-color: rgba(39, 174, 96, 0.15); border: 2px solid var(--color-success); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--spacing-xl) auto; font-size: 3rem; color: var(--color-success);">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h2 style="margin-bottom: var(--spacing-sm);">Order Placed Successfully!</h2>
+                <p class="text-muted mb-4">Your classic spare parts have been successfully ordered and are ready to be packed.</p>
+                
+                <!-- Order specs box -->
+                <div style="background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--spacing-md); text-align: left; margin-bottom: var(--spacing-xl);">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: var(--spacing-xs);">
+                        <span class="text-muted">Order ID:</span>
+                        <strong id="success-order-id" class="text-primary">-</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: var(--spacing-xs);">
+                        <span class="text-muted">Total Payment:</span>
+                        <strong id="success-order-total" class="text-success">-</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: var(--spacing-xs);">
+                        <span class="text-muted">Payment Method:</span>
+                        <strong id="success-order-method">-</strong>
+                    </div>
+                    <div id="payment-instructions-box" style="margin-top: var(--spacing-md); border-top: 1px solid var(--color-border); padding-top: var(--spacing-sm); font-size: 0.85rem;">
+                        <!-- Payment instructions (Virtual account no, etc.) -->
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: var(--spacing-md);">
+                    <a href="../../index.html" class="btn btn-secondary btn-block">Back to Home</a>
+                    <a href="history.html" class="btn btn-primary btn-block">Track Order <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 class="logo"><i class="fa-solid fa-motorcycle text-primary"></i> VintageVroom</h3>
+                    <p>Provider of spare parts, restoration accessories, and engine equipment for classic motorcycles from the 70s, 80s, and 90s.</p>
+                    <div class="footer-socials">
+                        <a href="#" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Public Menu</h4>
+                    <ul class="footer-links">
+                        <li><a href="../../index.html">Home</a></li>
+                        <li><a href="produk.html">Product Catalog</a></li>
+                        <li><a href="artikel.html">Articles & Tips</a></li>
+                        <li><a href="history.html">Track Order</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Popular Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="produk.html?category=mesin">Engine Components</a></li>
+                        <li><a href="produk.html?category=karburator">Carburetor</a></li>
+                        <li><a href="produk.html?category=knalpot">Chrome Exhaust</a></li>
+                        <li><a href="produk.html?category=kelistrikan">12V Electrical</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fa-solid fa-map-location-dot"></i> Surabaya, East Java, Indonesia</li>
+                        <li><i class="fa-solid fa-phone"></i> +62 812-3456-7890</li>
+                        <li><i class="fa-solid fa-envelope"></i> info@vintagevroom.id</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 VintageVroom. Made with <i class="fa-solid fa-heart text-primary"></i> by Andy Vintage for UI Workshop Final Project.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================================================
+       JAVASCRIPT CHECKOUT CONTROLLERS
+       ========================================================================== -->
+    <script src="../../assets/js/data.js"></script>
+    <script src="../../assets/js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('checkout-main-form');
+            const summaryList = document.getElementById('checkout-summary-items-list');
+            const subtotalText = document.getElementById('summary-subtotal');
+            const totalText = document.getElementById('summary-total');
+
+            // Success modal elements
+            const successModal = document.getElementById('success-modal');
+            const successOrderId = document.getElementById('success-order-id');
+            const successOrderTotal = document.getElementById('success-order-total');
+            const successOrderMethod = document.getElementById('success-order-method');
+            const instructionsBox = document.getElementById('payment-instructions-box');
+
+            const cart = VintageVroomStorage.getCart();
+
+            // Redirect if cart is empty
+            if (cart.length === 0) {
+                window.location.href = 'keranjang.html';
+                return;
+            }
+
+            // 1. Render Summary list
+            let totalAmount = 0;
+            summaryList.innerHTML = '';
+            
+            cart.forEach(item => {
+                const itemSubtotal = item.price * item.qty;
+                totalAmount += itemSubtotal;
+                
+                const div = document.createElement('div');
+                div.style.cssText = `
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 0.9rem;
+                    gap: var(--spacing-md);
+                `;
+                div.innerHTML = `
+                    <div style="flex-grow: 1;">
+                        <span style="font-weight: 700; color: var(--color-text);">${item.name}</span>
+                        <span style="color: var(--color-text-muted); display: block; font-size: 0.8rem;">Qty: ${item.qty} &bull; ${item.compatibility}</span>
+                    </div>
+                    <span style="font-weight: 600;">${VintageVroomStorage.formatRupiah(itemSubtotal)}</span>
+                `;
+                summaryList.appendChild(div);
+            });
+
+            subtotalText.textContent = VintageVroomStorage.formatRupiah(totalAmount);
+            totalText.textContent = VintageVroomStorage.formatRupiah(totalAmount);
+
+            // 2. Bind Payment Selection Toggle
+            const paymentRadios = document.querySelectorAll('input[name="payment-method-group"]');
+            const paymentOptions = document.querySelectorAll('.payment-option');
+
+            paymentOptions.forEach(opt => {
+                opt.addEventListener('click', () => {
+                    paymentOptions.forEach(o => o.classList.remove('active'));
+                    opt.classList.add('active');
+                    opt.querySelector('input').checked = true;
+                });
+            });
+
+            // 3. Form Submit Logic (Checkout simulation)
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                // Validate form inputs
+                const nameInput = document.getElementById('full-name').value;
+                const phoneInput = document.getElementById('phone-number').value;
+                const emailInput = document.getElementById('email').value;
+                const addressInput = document.getElementById('shipping-address').value;
+                const paymentMethod = document.querySelector('input[name="payment-method-group"]:checked').value;
+
+                if (!nameInput || !phoneInput || !emailInput || !addressInput) {
+                    VintageVroomToast.show('Please fill out all form fields!', 'danger');
+                    return;
+                }
+
+                // Create Order ID
+                const randomId = 'VV-' + Math.floor(1000000 + Math.random() * 9000000);
+                
+                // Get transactions database
+                const transactions = VintageVroomStorage.getTransactions();
+                const products = VintageVroomStorage.getProducts();
+
+                // Gather items list
+                const orderItems = cart.map(item => {
+                    return {
+                        productId: item.productId,
+                        name: item.name,
+                        price: item.price,
+                        qty: item.qty
+                    };
+                });
+
+                // Subtract Stock from products database
+                let stockUpdated = true;
+                cart.forEach(item => {
+                    const pIndex = products.findIndex(p => p.id === item.productId);
+                    if (pIndex > -1) {
+                        if (products[pIndex].stock >= item.qty) {
+                            products[pIndex].stock -= item.qty;
+                        } else {
+                            stockUpdated = false;
+                            VintageVroomToast.show(`Not enough stock of ${item.name} for this order amount!`, 'danger');
+                        }
+                    }
+                });
+
+                if (!stockUpdated) return;
+
+                // Save updated products inventory
+                VintageVroomStorage.saveProducts(products);
+
+                // Add new transaction
+                const date = new Date();
+                const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                const formattedDate = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+
+                const newOrder = {
+                    orderId: randomId,
+                    date: formattedDate,
+                    customerName: nameInput,
+                    total: totalAmount,
+                    status: 'pending',
+                    paymentMethod: paymentMethod,
+                    shippingAddress: addressInput,
+                    items: orderItems
+                };
+
+                transactions.unshift(newOrder);
+                VintageVroomStorage.saveTransactions(transactions);
+
+                // Clear Shopping Cart
+                VintageVroomStorage.saveCart([]);
+
+                // Set Modal Information
+                successOrderId.textContent = randomId;
+                successOrderTotal.textContent = VintageVroomStorage.formatRupiah(totalAmount);
+                successOrderMethod.textContent = paymentMethod;
+
+                // Set Payment details instructions
+                if (paymentMethod === 'Transfer Bank BCA') {
+                    instructionsBox.innerHTML = `
+                        <p class="text-muted" style="margin-bottom: 5px;">Please transfer the bill to BCA Virtual Account:</p>
+                        <div style="background-color: var(--color-surface-card); border: 1px dashed var(--color-primary); padding: var(--spacing-sm); border-radius: var(--radius-sm); font-size: 1.1rem; text-align: center; font-weight: 700; letter-spacing: 1px;" class="text-primary">
+                            8034 0812 3456 7890 <i class="fa-solid fa-copy" style="cursor: pointer; margin-left: var(--spacing-sm); font-size: 0.9rem;" onclick="navigator.clipboard.writeText('8034081234567890'); VintageVroomToast.show('VA No. copied!', 'success')"></i>
+                        </div>
+                        <p class="text-muted" style="margin-top: 5px; font-size: 0.75rem;">Payment is automatically verified by the system within 5 minutes.</p>
+                    `;
+                } else if (paymentMethod === 'QRIS') {
+                    instructionsBox.innerHTML = `
+                        <p class="text-muted" style="margin-bottom: 5px; text-align: center;">Scan this QRIS code using a digital wallet:</p>
+                        <div style="background: white; padding: var(--spacing-sm); width: 140px; height: 140px; margin: 0 auto var(--spacing-sm) auto; display: flex; align-items: center; justify-content: center;">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(randomId)}" alt="QRIS Code" style="width: 100%; height: 100%;">
+                        </div>
+                        <p class="text-muted" style="font-size: 0.75rem; text-align: center;">Unique QR code will expire in 15 minutes.</p>
+                    `;
+                } else {
+                    instructionsBox.innerHTML = `
+                        <div style="display: flex; gap: var(--spacing-sm); align-items: flex-start; color: var(--color-warning);">
+                            <i class="fa-solid fa-circle-info" style="font-size: 1.1rem; margin-top: 2px;"></i>
+                            <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 0;">Please prepare the exact amount of <strong>${VintageVroomStorage.formatRupiah(totalAmount)}</strong> when the courier delivers your spare parts package.</p>
+                        </div>
+                    `;
+                }
+
+                // Show Success Modal
+                successModal.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

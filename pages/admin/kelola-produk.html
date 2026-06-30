@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Produk | VintageVroom Admin</title>
+    <!-- Fonts & Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/responsive.css">
+    <link rel="stylesheet" href="../../assets/css/admin.css">
+</head>
+<body>
+
+    <div class="admin-container">
+        <!-- ==========================================================================
+           ADMIN SIDEBAR
+           ========================================================================== -->
+        <aside class="admin-sidebar">
+            <div class="admin-logo-wrapper">
+                <a href="../../index.html" class="logo" style="font-size: 1.5rem;">
+                    <i class="fa-solid fa-motorcycle text-primary"></i> VintageVroom
+                </a>
+            </div>
+            
+            <div class="admin-user-profile">
+                <div class="admin-avatar">
+                    <i class="fa-solid fa-user-tie"></i>
+                </div>
+                <div>
+                    <div class="admin-user-name">Andy Vintage</div>
+                    <div class="admin-user-role">Administrator</div>
+                </div>
+            </div>
+
+            <nav class="admin-nav">
+                <a href="dashboard.html" class="admin-nav-item">
+                    <i class="fa-solid fa-chart-line"></i> Main Dashboard
+                </a>
+                <a href="kelola-produk.html" class="admin-nav-item active">
+                    <i class="fa-solid fa-wrench"></i> Manage Products
+                </a>
+                <a href="kelola-artikel.html" class="admin-nav-item">
+                    <i class="fa-solid fa-file-pen"></i> Manage Articles
+                </a>
+                <a href="kelola-pengguna.html" class="admin-nav-item">
+                    <i class="fa-solid fa-users"></i> Manage Users
+                </a>
+                <a href="kelola-transaksi.html" class="admin-nav-item">
+                    <i class="fa-solid fa-file-invoice-dollar"></i> Manage Transactions
+                </a>
+            </nav>
+
+            <div class="admin-sidebar-footer">
+                <a href="#" class="admin-nav-item logout-btn" style="padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--radius-sm); border: 1px solid var(--color-border); justify-content: center; background-color: rgba(192,57,43,0.05); color: var(--color-danger);">
+                    <i class="fa-solid fa-power-off"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- ==========================================================================
+           ADMIN MAIN CONTENT
+           ========================================================================== -->
+        <main class="admin-main">
+            <!-- Header bar -->
+            <header class="admin-header">
+                <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                    <button class="menu-toggle-btn" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+                    <h2 class="admin-header-title">Manage Product Inventory</h2>
+                </div>
+            </header>
+
+            <!-- Body Area -->
+            <div class="admin-content-body">
+                <!-- Actions Bar -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-lg); flex-wrap: wrap; gap: var(--spacing-md);">
+                    <!-- Search input -->
+                    <div style="width: 100%; max-width: 300px; position: relative;">
+                        <input type="text" id="prod-search-input" class="form-control" placeholder="Search Name / SKU..." style="padding-right: 35px;">
+                        <i class="fa-solid fa-magnifying-glass" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--color-text-muted); pointer-events: none;"></i>
+                    </div>
+
+                    <!-- Add product button -->
+                    <a href="produk-form.html" class="btn btn-primary">
+                        <i class="fa-solid fa-plus"></i> Add New Product
+                    </a>
+                </div>
+
+                <!-- Products Table -->
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width: 70px; text-align: center;">Photo</th>
+                                <th>Name</th>
+                                <th>SKU</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th style="text-align: center;">Stock</th>
+                                <th style="text-align: center;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-products-tbody">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Empty State -->
+                <div id="no-prods-message" style="display: none; text-align: center; padding: var(--spacing-3xl) 0;">
+                    <div style="font-size: 3rem; color: var(--color-text-muted); margin-bottom: var(--spacing-md);">
+                        <i class="fa-solid fa-toolbox"></i>
+                    </div>
+                    <h3>Empty Inventory</h3>
+                    <p class="text-muted">There are no registered spare parts that match your search criteria.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ==========================================================================
+       JAVASCRIPT PRODUCTS MANAGER CONTROL
+       ========================================================================== -->
+    <script src="../../assets/js/data.js"></script>
+    <script src="../../assets/js/app.js"></script>
+    <script src="../../assets/js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('prod-search-input');
+            const itemsTbody = document.getElementById('admin-products-tbody');
+            const noProdsMsg = document.getElementById('no-prods-message');
+
+            function renderProductsTable() {
+                const products = VintageVroomStorage.getProducts();
+                const query = searchInput.value.toLowerCase().trim();
+
+                const filtered = products.filter(p => {
+                    return p.name.toLowerCase().includes(query) || 
+                           p.sku.toLowerCase().includes(query) || 
+                           p.category.toLowerCase().includes(query);
+                });
+
+                itemsTbody.innerHTML = '';
+
+                if (filtered.length === 0) {
+                    itemsTbody.parentElement.parentElement.style.display = 'none';
+                    noProdsMsg.style.display = 'block';
+                } else {
+                    itemsTbody.parentElement.parentElement.style.display = 'table';
+                    noProdsMsg.style.display = 'none';
+
+                    filtered.forEach(p => {
+                        const tr = document.createElement('tr');
+                        const formattedPrice = VintageVroomStorage.formatRupiah(p.price);
+                        
+                        // stock color highlights
+                        let stockColor = '';
+                        if (p.stock === 0) stockColor = 'color: var(--color-danger); font-weight: 700;';
+                        else if (p.stock <= 5) stockColor = 'color: var(--color-warning); font-weight: 700;';
+
+                        tr.innerHTML = `
+                            <td style="text-align: center;">
+                                <img src="../../${p.image}" alt="${p.name}" style="width: 50px; height: 38px; object-fit: cover; border: 1px solid var(--color-border); border-radius: var(--radius-sm);" onerror="this.src='https://placehold.co/80x60/2c1f0e/f5ecd7?text=Part'">
+                            </td>
+                            <td><strong>${p.name}</strong></td>
+                            <td style="font-family: monospace; font-size: 0.85rem; font-weight: 600;">${p.sku}</td>
+                            <td style="text-transform: uppercase; font-size: 0.8rem; font-weight: 700; color: var(--color-primary);">${p.category}</td>
+                            <td style="font-weight: 600;">${formattedPrice}</td>
+                            <td style="text-align: center; ${stockColor}">${p.stock}</td>
+                            <td style="text-align: center;">
+                                <div style="display: inline-flex; gap: var(--spacing-xs);">
+                                    <a href="produk-form.html?id=${p.id}" class="btn btn-secondary btn-sm" title="Edit Produk">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <button class="btn btn-danger btn-sm delete-prod-btn" data-id="${p.id}" title="Hapus Produk">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        `;
+                        itemsTbody.appendChild(tr);
+                    });
+
+                    // Bind Delete product clicks
+                    document.querySelectorAll('.delete-prod-btn').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            const id = parseInt(btn.getAttribute('data-id'));
+                            deleteProduct(id);
+                        });
+                    });
+                }
+            }
+
+            function deleteProduct(productId) {
+                if (confirm('Apakah Anda yakin ingin menghapus produk ini dari database inventori?')) {
+                    const products = VintageVroomStorage.getProducts();
+                    const filtered = products.filter(p => p.id !== productId);
+                    
+                    VintageVroomStorage.saveProducts(filtered);
+                    renderProductsTable();
+                    
+                    // Trigger global header re-calculations
+                    calculateMetrics();
+                    
+                    VintageVroomToast.show('Produk berhasil dihapus dari inventori!', 'success');
+                }
+            }
+
+            // Bind search
+            searchInput.addEventListener('input', renderProductsTable);
+
+            // Initial render
+            renderProductsTable();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Transaksi | VintageVroom Admin</title>
+    <!-- Fonts & Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/responsive.css">
+    <link rel="stylesheet" href="../../assets/css/admin.css">
+</head>
+<body>
+
+    <div class="admin-container">
+        <!-- ==========================================================================
+           ADMIN SIDEBAR
+           ========================================================================== -->
+        <aside class="admin-sidebar">
+            <div class="admin-logo-wrapper">
+                <a href="../../index.html" class="logo" style="font-size: 1.5rem;">
+                    <i class="fa-solid fa-motorcycle text-primary"></i> VintageVroom
+                </a>
+            </div>
+            
+            <div class="admin-user-profile">
+                <div class="admin-avatar">
+                    <i class="fa-solid fa-user-tie"></i>
+                </div>
+                <div>
+                    <div class="admin-user-name">Andy Vintage</div>
+                    <div class="admin-user-role">Administrator</div>
+                </div>
+            </div>
+
+            <nav class="admin-nav">
+                <a href="dashboard.html" class="admin-nav-item">
+                    <i class="fa-solid fa-chart-line"></i> Main Dashboard
+                </a>
+                <a href="kelola-produk.html" class="admin-nav-item">
+                    <i class="fa-solid fa-wrench"></i> Manage Products
+                </a>
+                <a href="kelola-artikel.html" class="admin-nav-item">
+                    <i class="fa-solid fa-file-pen"></i> Manage Articles
+                </a>
+                <a href="kelola-pengguna.html" class="admin-nav-item">
+                    <i class="fa-solid fa-users"></i> Manage Users
+                </a>
+                <a href="kelola-transaksi.html" class="admin-nav-item active">
+                    <i class="fa-solid fa-file-invoice-dollar"></i> Manage Transactions
+                </a>
+            </nav>
+
+            <div class="admin-sidebar-footer">
+                <a href="#" class="admin-nav-item logout-btn" style="padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--radius-sm); border: 1px solid var(--color-border); justify-content: center; background-color: rgba(192,57,43,0.05); color: var(--color-danger);">
+                    <i class="fa-solid fa-power-off"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- ==========================================================================
+           ADMIN MAIN CONTENT
+           ========================================================================== -->
+        <main class="admin-main">
+            <!-- Header bar -->
+            <header class="admin-header">
+                <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                    <button class="menu-toggle-btn" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+                    <h2 class="admin-header-title">Manage Orders & Payments</h2>
+                </div>
+            </header>
+
+            <!-- Body Area -->
+            <div class="admin-content-body">
+                <!-- Actions Bar -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-lg); flex-wrap: wrap; gap: var(--spacing-md); background-color: var(--color-surface); padding: var(--spacing-md); border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+                    <!-- Search input -->
+                    <div style="width: 100%; max-width: 300px; position: relative;">
+                        <input type="text" id="trans-search-input" class="form-control" placeholder="Search Order ID / Customer..." style="padding-right: 35px;">
+                        <i class="fa-solid fa-magnifying-glass" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--color-text-muted); pointer-events: none;"></i>
+                    </div>
+
+                    <!-- Status filter dropdown -->
+                    <div style="display: flex; align-items: center; gap: var(--spacing-sm);">
+                        <label for="status-filter-select" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--color-text-muted);">Status:</label>
+                        <select id="status-filter-select" class="form-control" style="width: auto; padding: var(--spacing-xs) var(--spacing-lg) var(--spacing-xs) var(--spacing-sm); font-size: 0.85rem;">
+                            <option value="all">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="diproses">Processing</option>
+                            <option value="dikirim">Shipped</option>
+                            <option value="selesai">Completed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Transactions Table -->
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Date</th>
+                                <th>Customer Name</th>
+                                <th>Payment Method</th>
+                                <th>Total Amount</th>
+                                <th>Status</th>
+                                <th style="text-align: center;">Update Status</th>
+                                <th style="text-align: center;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-transactions-tbody">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Empty State -->
+                <div id="no-trans-message" style="display: none; text-align: center; padding: var(--spacing-3xl) 0;">
+                    <div style="font-size: 3rem; color: var(--color-text-muted); margin-bottom: var(--spacing-md);">
+                        <i class="fa-solid fa-receipt"></i>
+                    </div>
+                    <h3>Transaction Not Found</h3>
+                    <p class="text-muted">There are no registered orders that match your search criteria.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ==========================================================================
+       DETAIL INVOICE MODAL
+       ========================================================================== -->
+    <div class="modal" id="admin-invoice-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fa-solid fa-receipt text-primary"></i> Transaction Details</h3>
+                <span class="modal-close" id="close-modal-btn">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--color-border); padding-bottom: var(--spacing-sm); margin-bottom: var(--spacing-md);">
+                    <div>
+                        <h4 style="margin-bottom: 2px;" id="modal-order-id">VV-9812401</h4>
+                        <span id="modal-order-date" style="font-size: 0.8rem; color: var(--color-text-muted);">Date: June 11, 2026</span>
+                    </div>
+                    <div style="text-align: right;">
+                        <span id="modal-order-status" class="badge">Pending</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-2 mb-4">
+                    <div>
+                        <h5 style="color: var(--color-primary); margin-bottom: var(--spacing-xs);">Customer Information:</h5>
+                        <p style="font-size: 0.85rem; line-height: 1.4; margin-bottom: 0;" id="modal-customer-info">
+                            <strong>Budi Wijaya</strong><br>
+                            Jl. Rungkut Madya No. 45<br>
+                            Surabaya Timur
+                        </p>
+                    </div>
+                    <div>
+                        <h5 style="color: var(--color-primary); margin-bottom: var(--spacing-xs);">Payment Method:</h5>
+                        <p style="font-size: 0.85rem; line-height: 1.4; margin-bottom: 0;" id="modal-payment-info">
+                            Transfer BCA
+                        </p>
+                    </div>
+                </div>
+
+                <h5 style="margin-bottom: var(--spacing-xs); text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.8rem;">List of Purchased Parts</h5>
+                <div class="table-responsive">
+                    <table class="table" style="font-size: 0.85rem;">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th style="text-align: right;">Unit Price</th>
+                                <th style="text-align: center;">Quantity</th>
+                                <th style="text-align: right;">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody id="modal-items-tbody">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; margin-top: var(--spacing-md); border-top: 1px solid var(--color-border); padding-top: var(--spacing-sm);">
+                    <div style="width: 180px; font-size: 0.9rem;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <strong>Total Payment:</strong>
+                            <strong id="modal-total" class="text-primary">Rp 0</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary btn-sm" id="close-modal-footer-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+       JAVASCRIPT TRANSACTIONS CONTROLLER
+       ========================================================================== -->
+    <script src="../../assets/js/data.js"></script>
+    <script src="../../assets/js/app.js"></script>
+    <script src="../../assets/js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('trans-search-input');
+            const statusFilter = document.getElementById('status-filter-select');
+            const itemsTbody = document.getElementById('admin-transactions-tbody');
+            const noTransMsg = document.getElementById('no-trans-message');
+
+            // Modal references
+            const modal = document.getElementById('admin-invoice-modal');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            const closeModalFooterBtn = document.getElementById('close-modal-footer-btn');
+
+            function renderTransactionsTable() {
+                const transactions = VintageVroomStorage.getTransactions();
+                const query = searchInput.value.toLowerCase().trim();
+                const filterVal = statusFilter.value;
+
+                const filtered = transactions.filter(t => {
+                    const matchesSearch = t.orderId.toLowerCase().includes(query) || 
+                                          t.customerName.toLowerCase().includes(query);
+                    const matchesStatus = filterVal === 'all' || t.status === filterVal;
+                    return matchesSearch && matchesStatus;
+                });
+
+                itemsTbody.innerHTML = '';
+
+                if (filtered.length === 0) {
+                    itemsTbody.parentElement.parentElement.style.display = 'none';
+                    noTransMsg.style.display = 'block';
+                } else {
+                    itemsTbody.parentElement.parentElement.style.display = 'table';
+                    noTransMsg.style.display = 'none';
+
+                    filtered.forEach(t => {
+                        const tr = document.createElement('tr');
+                        const formattedTotal = VintageVroomStorage.formatRupiah(t.total);
+                        
+                        // status badge styling
+                        let badgeClass = 'badge-primary';
+                        if (t.status === 'selesai') badgeClass = 'badge-success';
+                        if (t.status === 'pending') badgeClass = 'badge-warning';
+
+                        tr.innerHTML = `
+                            <td style="font-weight: 700;" class="text-primary">${t.orderId}</td>
+                            <td>${t.date}</td>
+                            <td><strong>${t.customerName}</strong></td>
+                            <td style="font-size: 0.85rem;">${t.paymentMethod}</td>
+                            <td style="font-weight: 700;">${formattedTotal}</td>
+                            <td><span class="badge ${badgeClass}">${t.status}</span></td>
+                            <td style="text-align: center;">
+                                <select class="form-control status-updater-select" data-id="${t.orderId}" style="width: auto; padding: var(--spacing-xs) var(--spacing-md); font-size: 0.8rem; font-weight: 600; cursor: pointer;">
+                                    <option value="pending" ${t.status === 'pending' ? 'selected' : ''}>Pending</option>
+                                    <option value="diproses" ${t.status === 'diproses' ? 'selected' : ''}>Diproses</option>
+                                    <option value="dikirim" ${t.status === 'dikirim' ? 'selected' : ''}>Dikirim</option>
+                                    <option value="selesai" ${t.status === 'selesai' ? 'selected' : ''}>Selesai</option>
+                                </select>
+                            </td>
+                            <td style="text-align: center;">
+                                <button class="btn btn-secondary btn-sm open-modal-btn" data-id="${t.orderId}">
+                                    <i class="fa-solid fa-eye"></i> Detail
+                                </button>
+                            </td>
+                        `;
+                        itemsTbody.appendChild(tr);
+                    });
+
+                    // Bind status selector updates
+                    document.querySelectorAll('.status-updater-select').forEach(sel => {
+                        sel.addEventListener('change', () => {
+                            const id = sel.getAttribute('data-id');
+                            const val = sel.value;
+                            updateOrderStatus(id, val);
+                        });
+                    });
+
+                    // Bind detail modal triggers
+                    document.querySelectorAll('.open-modal-btn').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            const id = btn.getAttribute('data-id');
+                            openOrderDetailsModal(id);
+                        });
+                    });
+                }
+            }
+
+            function updateOrderStatus(orderId, nextStatus) {
+                const transactions = VintageVroomStorage.getTransactions();
+                const ord = transactions.find(t => t.orderId === orderId);
+
+                if (ord) {
+                    ord.status = nextStatus;
+                    VintageVroomStorage.saveTransactions(transactions);
+                    renderTransactionsTable();
+                    
+                    // Trigger global metrics calculations
+                    calculateMetrics();
+                    
+                    VintageVroomToast.show(`Status order ${orderId} berhasil diubah ke: ${nextStatus}!`, 'success');
+                }
+            }
+
+            function openOrderDetailsModal(orderId) {
+                const transactions = VintageVroomStorage.getTransactions();
+                const ord = transactions.find(t => t.orderId === orderId);
+
+                if (!ord) return;
+
+                document.getElementById('modal-order-id').textContent = ord.orderId;
+                document.getElementById('modal-order-date').textContent = `Tanggal: ${ord.date}`;
+                document.getElementById('modal-customer-info').innerHTML = `
+                    <strong>${ord.customerName}</strong><br>
+                    ${ord.shippingAddress.replace(/\n/g, '<br>')}
+                `;
+                document.getElementById('modal-payment-info').textContent = ord.paymentMethod;
+                document.getElementById('modal-total').textContent = VintageVroomStorage.formatRupiah(ord.total);
+
+                // Status Badge class
+                const statusBadge = document.getElementById('modal-order-status');
+                statusBadge.textContent = ord.status;
+                
+                let badgeClass = 'badge-primary';
+                if (ord.status === 'selesai') badgeClass = 'badge-success';
+                if (ord.status === 'pending') badgeClass = 'badge-warning';
+                statusBadge.className = `badge ${badgeClass}`;
+
+                // Populate products list in table
+                const tbody = document.getElementById('modal-items-tbody');
+                tbody.innerHTML = '';
+
+                ord.items.forEach(item => {
+                    const tr = document.createElement('tr');
+                    const formattedPrice = VintageVroomStorage.formatRupiah(item.price);
+                    const formattedSub = VintageVroomStorage.formatRupiah(item.price * item.qty);
+
+                    tr.innerHTML = `
+                        <td><strong>${item.name}</strong></td>
+                        <td style="text-align: right;">${formattedPrice}</td>
+                        <td style="text-align: center;">${item.qty}</td>
+                        <td style="text-align: right; font-weight: 600;">${formattedSub}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+                modal.classList.add('active');
+            }
+
+            function closeModal() {
+                modal.classList.remove('active');
+            }
+
+            closeModalBtn.addEventListener('click', closeModal);
+            closeModalFooterBtn.addEventListener('click', closeModal);
+            modal.querySelector('.modal-overlay').addEventListener('click', closeModal);
+
+            // Bind triggers
+            searchInput.addEventListener('input', renderTransactionsTable);
+            statusFilter.addEventListener('change', renderTransactionsTable);
+
+            // Initial load
+            renderTransactionsTable();
+        });
+    </script>
+</body>
+</html>

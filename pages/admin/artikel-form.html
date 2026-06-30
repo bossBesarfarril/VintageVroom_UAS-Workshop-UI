@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Artikel | VintageVroom Admin</title>
+    <!-- Fonts & Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/responsive.css">
+    <link rel="stylesheet" href="../../assets/css/admin.css">
+</head>
+<body>
+
+    <div class="admin-container">
+        <!-- ==========================================================================
+           ADMIN SIDEBAR
+           ========================================================================== -->
+        <aside class="admin-sidebar">
+            <div class="admin-logo-wrapper">
+                <a href="../../index.html" class="logo" style="font-size: 1.5rem;">
+                    <i class="fa-solid fa-motorcycle text-primary"></i> VintageVroom
+                </a>
+            </div>
+            
+            <div class="admin-user-profile">
+                <div class="admin-avatar">
+                    <i class="fa-solid fa-user-tie"></i>
+                </div>
+                <div>
+                    <div class="admin-user-name">Andy Vintage</div>
+                    <div class="admin-user-role">Administrator</div>
+                </div>
+            </div>
+
+            <nav class="admin-nav">
+                <a href="dashboard.html" class="admin-nav-item">
+                    <i class="fa-solid fa-chart-line"></i> Main Dashboard
+                </a>
+                <a href="kelola-produk.html" class="admin-nav-item">
+                    <i class="fa-solid fa-wrench"></i> Manage Products
+                </a>
+                <a href="kelola-artikel.html" class="admin-nav-item active">
+                    <i class="fa-solid fa-file-pen"></i> Manage Articles
+                </a>
+                <a href="kelola-pengguna.html" class="admin-nav-item">
+                    <i class="fa-solid fa-users"></i> Manage Users
+                </a>
+                <a href="kelola-transaksi.html" class="admin-nav-item">
+                    <i class="fa-solid fa-file-invoice-dollar"></i> Manage Transactions
+                </a>
+            </nav>
+
+            <div class="admin-sidebar-footer">
+                <a href="#" class="admin-nav-item logout-btn" style="padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--radius-sm); border: 1px solid var(--color-border); justify-content: center; background-color: rgba(192,57,43,0.05); color: var(--color-danger);">
+                    <i class="fa-solid fa-power-off"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- ==========================================================================
+           ADMIN MAIN CONTENT
+           ========================================================================== -->
+        <main class="admin-main">
+            <!-- Header bar -->
+            <header class="admin-header">
+                <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                    <button class="menu-toggle-btn" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+                    <h2 class="admin-header-title" id="form-header-title">Write New Article</h2>
+                </div>
+            </header>
+
+            <!-- Body Area -->
+            <div class="admin-content-body">
+                <div class="panel">
+                    <form id="article-crud-form">
+                        <div class="form-group">
+                            <label class="form-label" for="art-title">Article Title *</label>
+                            <input type="text" id="art-title" class="form-control" placeholder="Example: 5 Tips for Choosing Original Carburetors..." required>
+                        </div>
+
+                        <div class="grid grid-3" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                            <div class="form-group">
+                                <label class="form-label" for="art-category">Article Category *</label>
+                                <select id="art-category" class="form-control" required style="padding: var(--spacing-sm) var(--spacing-md);">
+                                    <option value="Tips Perawatan">Care Tips</option>
+                                    <option value="Modifikasi">Modification</option>
+                                    <option value="Review Motor">Review Motor</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="art-author">Author Name *</label>
+                                <input type="text" id="art-author" class="form-control" placeholder="Example: Andy Vintage" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="art-status">Publication Status *</label>
+                                <select id="art-status" class="form-control" required style="padding: var(--spacing-sm) var(--spacing-md);">
+                                    <option value="publish">Published</option>
+                                    <option value="draft">Draft</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="art-thumbnail">Article Cover / Thumbnail (Mock Link / URL)</label>
+                            <input type="text" id="art-thumbnail" class="form-control" placeholder="assets/images/articles/rawat-karbu.jpg">
+                            <span style="font-size: 0.75rem; color: var(--color-text-muted);">Leave blank to use the automatic cover placeholder.</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="art-content">Complete Article Content *</label>
+                            <!-- Toolbar dummy emulator for rich text look -->
+                            <div style="background-color: var(--color-surface); border: 1px solid var(--color-border); border-bottom: none; border-radius: var(--radius-sm) var(--radius-sm) 0 0; padding: var(--spacing-xs) var(--spacing-sm); display: flex; gap: var(--spacing-md); font-size: 0.95rem; color: var(--color-text-muted);">
+                                <i class="fa-solid fa-bold" style="cursor: pointer;" onclick="alert('Rich text bold formatting simulation')"></i>
+                                <i class="fa-solid fa-italic" style="cursor: pointer;" onclick="alert('Rich text italic formatting simulation')"></i>
+                                <i class="fa-solid fa-underline" style="cursor: pointer;" onclick="alert('Rich text underline formatting simulation')"></i>
+                                <span style="border-left: 1px solid var(--color-border); height: 16px;"></span>
+                                <i class="fa-solid fa-list" style="cursor: pointer;" onclick="alert('Rich text list formatting simulation')"></i>
+                                <i class="fa-solid fa-list-ol" style="cursor: pointer;" onclick="alert('Rich text numbered list formatting simulation')"></i>
+                                <span style="border-left: 1px solid var(--color-border); height: 16px;"></span>
+                                <i class="fa-solid fa-link" style="cursor: pointer;" onclick="alert('Rich text hyperlink insertion simulation')"></i>
+                                <i class="fa-solid fa-image" style="cursor: pointer;" onclick="alert('Rich text photo insert simulation')"></i>
+                            </div>
+                            <textarea id="art-content" class="form-control" placeholder="Write your informative journal/article review in detail..." required style="min-height: 250px; border-radius: 0 0 var(--radius-sm) var(--radius-sm);"></textarea>
+                        </div>
+
+                        <!-- Actions Buttons -->
+                        <div class="admin-form-actions">
+                            <a href="kelola-artikel.html" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary" id="save-form-btn">Save Article</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ==========================================================================
+       JAVASCRIPT CRUD CONTROLLER
+       ========================================================================== -->
+    <script src="../../assets/js/data.js"></script>
+    <script src="../../assets/js/app.js"></script>
+    <script src="../../assets/js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('article-crud-form');
+            const titleEl = document.getElementById('form-header-title');
+            const saveBtn = document.getElementById('save-form-btn');
+
+            // Form Fields
+            const titleInput = document.getElementById('art-title');
+            const categorySelect = document.getElementById('art-category');
+            const authorInput = document.getElementById('art-author');
+            const statusSelect = document.getElementById('art-status');
+            const thumbnailInput = document.getElementById('art-thumbnail');
+            const contentInput = document.getElementById('art-content');
+
+            // Detect EDIT mode vs CREATE mode
+            const urlParams = new URLSearchParams(window.location.search);
+            const editId = parseInt(urlParams.get('id'));
+            
+            const articles = VintageVroomStorage.getArticles();
+            let editArticle = null;
+
+            if (!isNaN(editId)) {
+                // Edit mode
+                editArticle = articles.find(a => a.id === editId);
+                if (editArticle) {
+                    titleEl.textContent = `Edit Artikel: ID #${editArticle.id}`;
+                    saveBtn.textContent = 'Save Changes';
+                    
+                    // Fill inputs
+                    titleInput.value = editArticle.title;
+                    categorySelect.value = editArticle.category;
+                    authorInput.value = editArticle.author;
+                    statusSelect.value = editArticle.status || 'publish';
+                    thumbnailInput.value = editArticle.thumbnail;
+                    
+                    // Clean content spacing formatting
+                    contentInput.value = editArticle.content.replace(/^[ \t]+/gm, '');
+                }
+            } else {
+                // Pre-fill default admin author
+                authorInput.value = 'Andy Vintage';
+            }
+
+            // Form Submit handler
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const titleVal = titleInput.value.trim();
+                const authorVal = authorInput.value.trim();
+                const contentVal = contentInput.value.trim();
+                const categoryVal = categorySelect.value;
+                const statusVal = statusSelect.value;
+
+                // slug helper
+                const slug = titleVal.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+                const thumbnailPath = thumbnailInput.value.trim() !== '' 
+                    ? thumbnailInput.value.trim() 
+                    : `assets/images/articles/${slug}.jpg`;
+
+                // Excerpt helper (take first 130 characters)
+                const cleanContent = contentVal.replace(/\*\*|#|_/g, ''); // strip markdown syntax
+                const excerpt = cleanContent.length > 130 
+                    ? cleanContent.substring(0, 130) + '...' 
+                    : cleanContent;
+
+                const date = new Date();
+                const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                const formattedDate = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+
+                if (editArticle) {
+                    // Update existing
+                    editArticle.title = titleVal;
+                    editArticle.category = categoryVal;
+                    editArticle.author = authorVal;
+                    editArticle.status = statusVal;
+                    editArticle.thumbnail = thumbnailPath;
+                    editArticle.content = contentVal;
+                    editArticle.excerpt = excerpt;
+
+                    VintageVroomToast.show('Artikel berhasil diperbarui!', 'success');
+                } else {
+                    // Create new
+                    const newId = articles.reduce((max, a) => a.id > max ? a.id : max, 0) + 1;
+                    const newArt = {
+                        id: newId,
+                        title: titleVal,
+                        slug: slug,
+                        category: categoryVal,
+                        date: formattedDate,
+                        author: authorVal,
+                        status: statusVal,
+                        thumbnail: thumbnailPath,
+                        excerpt: excerpt,
+                        content: contentVal
+                    };
+                    articles.push(newArt);
+                    VintageVroomToast.show('Artikel baru berhasil diterbitkan!', 'success');
+                }
+
+                // Save to database
+                VintageVroomStorage.saveArticles(articles);
+
+                // Redirect
+                setTimeout(() => {
+                    window.location.href = 'kelola-artikel.html';
+                }, 1200);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Pengguna | VintageVroom Admin</title>
+    <!-- Fonts & Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/responsive.css">
+    <link rel="stylesheet" href="../../assets/css/admin.css">
+</head>
+<body>
+
+    <div class="admin-container">
+        <!-- ==========================================================================
+           ADMIN SIDEBAR
+           ========================================================================== -->
+        <aside class="admin-sidebar">
+            <div class="admin-logo-wrapper">
+                <a href="../../index.html" class="logo" style="font-size: 1.5rem;">
+                    <i class="fa-solid fa-motorcycle text-primary"></i> VintageVroom
+                </a>
+            </div>
+            
+            <div class="admin-user-profile">
+                <div class="admin-avatar">
+                    <i class="fa-solid fa-user-tie"></i>
+                </div>
+                <div>
+                    <div class="admin-user-name">Andy Vintage</div>
+                    <div class="admin-user-role">Administrator</div>
+                </div>
+            </div>
+
+            <nav class="admin-nav">
+                <a href="dashboard.html" class="admin-nav-item">
+                    <i class="fa-solid fa-chart-line"></i> Main Dashboard
+                </a>
+                <a href="kelola-produk.html" class="admin-nav-item">
+                    <i class="fa-solid fa-wrench"></i> Manage Products
+                </a>
+                <a href="kelola-artikel.html" class="admin-nav-item">
+                    <i class="fa-solid fa-file-pen"></i> Manage Articles
+                </a>
+                <a href="kelola-pengguna.html" class="admin-nav-item active">
+                    <i class="fa-solid fa-users"></i> Manage Users
+                </a>
+                <a href="kelola-transaksi.html" class="admin-nav-item">
+                    <i class="fa-solid fa-file-invoice-dollar"></i> Manage Transactions
+                </a>
+            </nav>
+
+            <div class="admin-sidebar-footer">
+                <a href="#" class="admin-nav-item logout-btn" style="padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--radius-sm); border: 1px solid var(--color-border); justify-content: center; background-color: rgba(192,57,43,0.05); color: var(--color-danger);">
+                    <i class="fa-solid fa-power-off"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- ==========================================================================
+           ADMIN MAIN CONTENT
+           ========================================================================== -->
+        <main class="admin-main">
+            <!-- Header bar -->
+            <header class="admin-header">
+                <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                    <button class="menu-toggle-btn" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+                    <h2 class="admin-header-title">Manage User Accounts</h2>
+                </div>
+            </header>
+
+            <!-- Body Area -->
+            <div class="admin-content-body">
+                <!-- Actions Bar -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-lg); flex-wrap: wrap; gap: var(--spacing-md);">
+                    <!-- Search input -->
+                    <div style="width: 100%; max-width: 300px; position: relative;">
+                        <input type="text" id="user-search-input" class="form-control" placeholder="Search Users..." style="padding-right: 35px;">
+                        <i class="fa-solid fa-magnifying-glass" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--color-text-muted); pointer-events: none;"></i>
+                    </div>
+                </div>
+
+                <!-- Users Table -->
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width: 60px; text-align: center;">ID</th>
+                                <th>Full Name</th>
+                                <th>Email Address</th>
+                                <th>Join Date</th>
+                                <th>Permissions</th>
+                                <th style="text-align: center;">Status</th>
+                                <th style="text-align: center;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-users-tbody">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Empty State -->
+                <div id="no-users-message" style="display: none; text-align: center; padding: var(--spacing-3xl) 0;">
+                    <div style="font-size: 3rem; color: var(--color-text-muted); margin-bottom: var(--spacing-md);">
+                        <i class="fa-solid fa-users-slash"></i>
+                    </div>
+                    <h3>Users Not Found</h3>
+                    <p class="text-muted">There are no user accounts in the database that match your search criteria.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ==========================================================================
+       JAVASCRIPT USERS CONTROLLER
+       ========================================================================== -->
+    <script src="../../assets/js/data.js"></script>
+    <script src="../../assets/js/app.js"></script>
+    <script src="../../assets/js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('user-search-input');
+            const itemsTbody = document.getElementById('admin-users-tbody');
+            const noUsersMsg = document.getElementById('no-users-message');
+
+            function renderUsersTable() {
+                const users = VintageVroomStorage.getUsers();
+                const query = searchInput.value.toLowerCase().trim();
+
+                const filtered = users.filter(u => {
+                    return u.name.toLowerCase().includes(query) || 
+                           u.email.toLowerCase().includes(query) || 
+                           u.role.toLowerCase().includes(query);
+                });
+
+                itemsTbody.innerHTML = '';
+
+                if (filtered.length === 0) {
+                    itemsTbody.parentElement.parentElement.style.display = 'none';
+                    noUsersMsg.style.display = 'block';
+                } else {
+                    itemsTbody.parentElement.parentElement.style.display = 'table';
+                    noUsersMsg.style.display = 'none';
+
+                    filtered.forEach(u => {
+                        const tr = document.createElement('tr');
+                        
+                        // roles labels
+                        const roleClass = u.role === 'admin' ? 'badge-primary' : 'badge-secondary';
+                        const roleLabel = u.role === 'admin' ? 'Administrator' : 'Customer';
+
+                        // status formatting
+                        const statusClass = u.status === 'aktif' ? 'badge-success' : 'badge-danger';
+                        const statusLabel = u.status === 'aktif' ? 'Active' : 'Inactive';
+                        const toggleActionIcon = u.status === 'aktif' ? 'fa-user-slash' : 'fa-user-check';
+                        const toggleActionTitle = u.status === 'aktif' ? 'Block User' : 'Activate User';
+
+                        // Disable toggle action for self admin
+                        const disableAction = u.email === 'andy@vintagevroom.id' ? 'disabled style="opacity: 0.3; cursor: not-allowed;"' : '';
+
+                        tr.innerHTML = `
+                            <td style="text-align: center; font-weight: 700;">#${u.id}</td>
+                            <td><strong>${u.name}</strong></td>
+                            <td style="font-family: monospace; font-size: 0.85rem;">${u.email}</td>
+                            <td>${u.joined}</td>
+                            <td><span class="badge ${roleClass}">${roleLabel}</span></td>
+                            <td style="text-align: center;"><span class="badge ${statusClass}">${statusLabel}</span></td>
+                            <td style="text-align: center;">
+                                <button class="btn btn-secondary btn-sm toggle-user-btn" data-id="${u.id}" ${disableAction} title="${toggleActionTitle}">
+                                    <i class="fa-solid ${toggleActionIcon}"></i> Toggle
+                                </button>
+                            </td>
+                        `;
+                        itemsTbody.appendChild(tr);
+                    });
+
+                    // Bind user status toggling
+                    document.querySelectorAll('.toggle-user-btn:not([disabled])').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            const id = parseInt(btn.getAttribute('data-id'));
+                            toggleUserStatus(id);
+                        });
+                    });
+                }
+            }
+
+            function toggleUserStatus(userId) {
+                const users = VintageVroomStorage.getUsers();
+                const user = users.find(u => u.id === userId);
+
+                if (user) {
+                    const nextStatus = user.status === 'aktif' ? 'nonaktif' : 'aktif';
+                    const confirmMsg = nextStatus === 'nonaktif' 
+                        ? `Blokir akun ${user.name}? Pengguna tidak akan bisa melakukan login.` 
+                        : `Aktifkan kembali akun ${user.name}?`;
+
+                    if (confirm(confirmMsg)) {
+                        user.status = nextStatus;
+                        VintageVroomStorage.saveUsers(users);
+                        renderUsersTable();
+                        
+                        // Recalculate dashboard counters
+                        calculateMetrics();
+                        
+                        VintageVroomToast.show(`Status akun ${user.name} berhasil diperbarui!`, 'success');
+                    }
+                }
+            }
+
+            // Bind search
+            searchInput.addEventListener('input', renderUsersTable);
+
+            // Initial render
+            renderUsersTable();
+        });
+    </script>
+</body>
+</html>

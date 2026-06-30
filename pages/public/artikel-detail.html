@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Detail tips dan panduan modifikasi motor tua. Info lengkap restorasi mesin, paking, karburator dari ahlinya.">
+    <title>Detail Artikel Bengkel | VintageVroom</title>
+    <!-- Fonts & Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/responsive.css">
+</head>
+<body>
+
+    <!-- ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== -->
+    <header class="header">
+        <div class="container navbar">
+            <a href="../../index.html" class="logo">
+                <i class="fa-solid fa-motorcycle"></i> VintageVroom
+            </a>
+
+            <nav class="nav-menu">
+                <a href="../../index.html" class="nav-link">Home</a>
+                <a href="produk.html" class="nav-link">Catalog</a>
+                <a href="artikel.html" class="nav-link active">Articles</a>
+                <a href="history.html" class="nav-link">Track Order</a>
+                <a href="login.html" class="btn btn-sm btn-outline nav-admin-btn">
+                    <i class="fa-solid fa-user-shield"></i> Admin Panel
+                </a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="keranjang.html" class="cart-icon-btn" title="Keranjang Belanja">
+                    <i class="fa-solid fa-toolbox"></i>
+                    <span class="cart-badge" style="display: none;">0</span>
+                </a>
+                <button class="hamburger" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+       MAIN CONTENT - ARTICLE DETAIL
+       ========================================================================== -->
+    <main class="container section">
+        <!-- Breadcrumbs -->
+        <ul class="breadcrumbs">
+            <li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="artikel.html">Articles</a></li>
+            <li class="breadcrumb-item active" id="breadcrumb-article-title">Article Detail</li>
+        </ul>
+
+        <div style="display: flex; gap: var(--spacing-xxl); align-items: flex-start; flex-wrap: wrap;">
+            <!-- Left: Article Content -->
+            <article style="flex: 2; min-width: 300px;">
+                <div style="margin-bottom: var(--spacing-lg);">
+                    <div style="display: flex; gap: var(--spacing-md); font-size: 0.85rem; color: var(--color-primary); font-weight: 700; text-transform: uppercase; margin-bottom: var(--spacing-sm);">
+                        <span id="article-category"><i class="fa-solid fa-folder"></i> CATEGORY</span>
+                        <span>&bull;</span>
+                        <span id="article-date" class="text-muted"><i class="fa-solid fa-calendar"></i> DATE</span>
+                    </div>
+                    <h1 id="article-title" style="font-size: 2.3rem; line-height: 1.2; margin-bottom: var(--spacing-md);">Workshop Article Title</h1>
+                    <div style="font-size: 0.9rem; color: var(--color-text-muted);">
+                        By: <strong id="article-author" class="text-primary">-</strong>
+                    </div>
+                </div>
+
+                <!-- Main Image -->
+                <div style="background-color: var(--color-surface-card); border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: var(--spacing-xl); aspect-ratio: 16 / 9;">
+                    <img id="article-img" src="" alt="" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://placehold.co/800x450/2c1f0e/f5ecd7?text=Vintage+Workshop'">
+                </div>
+
+                <!-- Rich text content -->
+                <div id="article-content" style="line-height: 1.8; font-size: 1.05rem; white-space: pre-line;">
+                    Accounts article content...
+                </div>
+
+                <!-- Share/Back buttons -->
+                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--color-border); margin-top: var(--spacing-xxl); padding-top: var(--spacing-lg); flex-wrap: wrap; gap: var(--spacing-md);">
+                    <a href="artikel.html" class="btn btn-secondary btn-sm">
+                        <i class="fa-solid fa-chevron-left"></i> Back to Articles
+                    </a>
+                    
+                    <div style="display: flex; align-items: center; gap: var(--spacing-sm);">
+                        <span class="text-muted" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase;">Share:</span>
+                        <button class="social-link" style="width: 32px; height: 32px; font-size: 0.9rem; cursor: pointer;"><i class="fa-brands fa-facebook-f"></i></button>
+                        <button class="social-link" style="width: 32px; height: 32px; font-size: 0.9rem; cursor: pointer;"><i class="fa-brands fa-whatsapp"></i></button>
+                        <button class="social-link" style="width: 32px; height: 32px; font-size: 0.9rem; cursor: pointer;" onclick="navigator.clipboard.writeText(window.location.href); VintageVroomToast.show('Link berhasil disalin!', 'success');"><i class="fa-solid fa-link"></i></button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Right: Sidebar (Related readings) -->
+            <aside style="flex: 1; min-width: 280px; background-color: var(--color-surface-card); border: 1px solid var(--color-border); padding: var(--spacing-lg); border-radius: var(--radius-md);">
+                <h3 style="font-size: 1.2rem; margin-bottom: var(--spacing-lg); border-bottom: 2px solid var(--color-primary); padding-bottom: var(--spacing-xs); text-transform: uppercase; letter-spacing: 0.5px;">Popular Articles</h3>
+                
+                <div style="display: flex; flex-direction: column; gap: var(--spacing-lg);" id="sidebar-articles-container">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 class="logo"><i class="fa-solid fa-motorcycle text-primary"></i> VintageVroom</h3>
+                    <p>Penyedia suku cadang, aksesoris restorasi, dan perlengkapan mesin motor klasik era 70an, 80an, hingga 90an.</p>
+                    <div class="footer-socials">
+                        <a href="#" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Menu Publik</h4>
+                    <ul class="footer-links">
+                        <li><a href="../../index.html">Home</a></li>
+                        <li><a href="produk.html">Katalog Produk</a></li>
+                        <li><a href="artikel.html">Artikel & Tips</a></li>
+                        <li><a href="history.html">Lacak Order</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Kategori Populer</h4>
+                    <ul class="footer-links">
+                        <li><a href="produk.html?category=mesin">Komponen Mesin</a></li>
+                        <li><a href="produk.html?category=karburator">Karburator</a></li>
+                        <li><a href="produk.html?category=knalpot">Knalpot Chrome</a></li>
+                        <li><a href="produk.html?category=kelistrikan">Kelistrikan 12V</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Hubungi Kami</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fa-solid fa-map-location-dot"></i> Surabaya, Jawa Timur, Indonesia</li>
+                        <li><i class="fa-solid fa-phone"></i> +62 812-3456-7890</li>
+                        <li><i class="fa-solid fa-envelope"></i> info@vintagevroom.id</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 VintageVroom. Dibuat dengan <i class="fa-solid fa-heart text-primary"></i> oleh Andy Vintage untuk Tugas UAS Workshop UI.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================================================
+       JAVASCRIPT ARTICLE DETAIL CONTROL
+       ========================================================================== -->
+    <script src="../../assets/js/data.js"></script>
+    <script src="../../assets/js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get Article Slug from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const slug = urlParams.get('slug');
+
+            if (!slug) {
+                window.location.href = 'artikel.html';
+                return;
+            }
+
+            const articles = VintageVroomStorage.getArticles();
+            const article = articles.find(a => a.slug === slug);
+
+            if (!article) {
+                window.location.href = 'artikel.html';
+                return;
+            }
+
+            // Populate Article in UI
+            document.getElementById('breadcrumb-article-title').textContent = article.title;
+            document.getElementById('article-title').textContent = article.title;
+            document.getElementById('article-author').textContent = article.author;
+            document.getElementById('article-date').innerHTML = `<i class="fa-solid fa-calendar"></i> ${article.date}`;
+            document.getElementById('article-category').innerHTML = `<i class="fa-solid fa-folder"></i> ${article.category}`;
+            
+            // Clean up double spaces or tabs in formatting string
+            const cleanedContent = article.content.replace(/^[ \t]+/gm, '');
+            document.getElementById('article-content').innerHTML = cleanedContent;
+
+            const artImg = document.getElementById('article-img');
+            artImg.src = `../../${article.thumbnail}`;
+            artImg.setAttribute('onerror', `this.src='https://placehold.co/800x450/2c1f0e/f5ecd7?text=${encodeURIComponent(article.title)}'`);
+
+            // Sidebar: Populate other articles (excluding current)
+            const sidebarContainer = document.getElementById('sidebar-articles-container');
+            const otherArticles = articles.filter(a => a.id !== article.id).slice(0, 3);
+
+            otherArticles.forEach(a => {
+                const item = document.createElement('div');
+                item.style.cssText = `
+                    display: flex;
+                    gap: var(--spacing-sm);
+                    cursor: pointer;
+                `;
+                item.onclick = () => { window.location.href = `artikel-detail.html?slug=${a.slug}`; };
+                
+                item.innerHTML = `
+                    <img src="../../${a.thumbnail}" alt="${a.title}" style="width: 70px; height: 55px; object-fit: cover; border-radius: var(--radius-sm); border: 1px solid var(--color-border);" onerror="this.src='https://placehold.co/100x80/2c1f0e/f5ecd7?text=Art'">
+                    <div style="flex-grow: 1;">
+                        <h4 style="font-size: 0.85rem; line-height: 1.3; margin-bottom: 2px; font-family: var(--font-body); font-weight: 700;">${a.title}</h4>
+                        <span style="font-size: 0.7rem; color: var(--color-primary); font-weight: 600; text-transform: uppercase;">${a.category}</span>
+                    </div>
+                `;
+                sidebarContainer.appendChild(item);
+            });
+        });
+    </script>
+</body>
+</html>

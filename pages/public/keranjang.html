@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shopping cart for your vintage motorcycle spare parts at VintageVroom. Double-check your order before making a payment.">
+    <title>Shopping Cart | VintageVroom</title>
+    <!-- Fonts & Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/responsive.css">
+</head>
+<body>
+
+    <!-- ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== -->
+    <header class="header">
+        <div class="container navbar">
+            <a href="../../index.html" class="logo">
+                <i class="fa-solid fa-motorcycle"></i> VintageVroom
+            </a>
+
+            <nav class="nav-menu">
+                <a href="../../index.html" class="nav-link">Home</a>
+                <a href="produk.html" class="nav-link">Catalog</a>
+                <a href="artikel.html" class="nav-link">Articles</a>
+                <a href="history.html" class="nav-link">Track Order</a>
+                <a href="login.html" class="btn btn-sm btn-outline nav-admin-btn">
+                    <i class="fa-solid fa-user-shield"></i> Admin Panel
+                </a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="keranjang.html" class="cart-icon-btn active" title="Shopping Cart">
+                    <i class="fa-solid fa-toolbox"></i>
+                    <span class="cart-badge" style="display: none;">0</span>
+                </a>
+                <button class="hamburger" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+       MAIN CONTENT - CART PAGE
+       ========================================================================== -->
+    <main class="container section">
+        <ul class="breadcrumbs">
+            <li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
+            <li class="breadcrumb-item active">Shopping Cart</li>
+        </ul>
+
+        <h1 class="mb-5">Fill Your Shopping Toolbox</h1>
+
+        <div id="cart-content-wrapper" style="display: flex; gap: var(--spacing-xl); align-items: flex-start; flex-wrap: wrap;">
+            <!-- Left: Cart Items Table/List -->
+            <div style="flex: 2; min-width: 300px;">
+                <div class="table-responsive">
+                    <table class="table" id="cart-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th style="text-align: center;">Quantity</th>
+                                <th>Subtotal</th>
+                                <th style="text-align: center;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart-items-tbody">
+                            <!-- Populated dynamically via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="cart-actions" style="display: flex; justify-content: space-between; align-items: center; margin-top: var(--spacing-md);">
+                    <a href="produk.html" class="btn btn-secondary">
+                        <i class="fa-solid fa-arrow-left-long"></i> Continue Shopping
+                    </a>
+                    <button id="clear-cart-btn" class="btn btn-danger btn-sm">
+                        <i class="fa-solid fa-trash-can"></i> Empty Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right: Order Summary Card -->
+            <div style="flex: 1; min-width: 280px; background-color: var(--color-surface-card); border: 1px solid var(--color-border); padding: var(--spacing-lg); border-radius: var(--radius-md);">
+                <h3 style="font-size: 1.2rem; margin-bottom: var(--spacing-lg); border-bottom: 2px solid var(--color-primary); padding-bottom: var(--spacing-xs); text-transform: uppercase; letter-spacing: 0.5px;">Order Summary</h3>
+                
+                <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-md); font-size: 0.95rem;">
+                    <span class="text-muted">Total Items</span>
+                    <span id="summary-total-qty" style="font-weight: 700;">0 Items</span>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-md); font-size: 0.95rem;">
+                    <span class="text-muted">Spare Parts Subtotal</span>
+                    <span id="summary-subtotal" style="font-weight: 700;">Rp 0</span>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-md); font-size: 0.95rem;">
+                    <span class="text-muted">Estimated Shipping Cost</span>
+                    <span class="text-success" style="font-weight: 700;">FREE (Promo)</span>
+                </div>
+
+                <hr style="border: none; border-bottom: 1px solid var(--color-border); margin: var(--spacing-lg) 0;">
+
+                <div style="display: flex; justify-content: space-between; margin-bottom: var(--spacing-xl); font-size: 1.25rem;">
+                    <strong>Total Payment</strong>
+                    <strong id="summary-total" class="text-primary">Rp 0</strong>
+                </div>
+
+                <a href="checkout.html" class="btn btn-primary btn-block">
+                    Proceed to Payment <i class="fa-solid fa-credit-card"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Empty Cart State -->
+        <div id="empty-cart-state" style="display: none; text-align: center; padding: var(--spacing-3xl) 0;">
+            <div style="font-size: 4rem; color: var(--color-text-muted); margin-bottom: var(--spacing-md);">
+                <i class="fa-solid fa-toolbox" style="opacity: 0.5;"></i>
+            </div>
+            <h2>Shopping Toolbox is Still Empty</h2>
+            <p class="text-muted mb-4">You haven't added any spare parts to your shopping cart.</p>
+            <a href="produk.html" class="btn btn-primary">
+                <i class="fa-solid fa-magnifying-glass"></i> Search Spare Parts Now
+            </a>
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 class="logo"><i class="fa-solid fa-motorcycle text-primary"></i> VintageVroom</h3>
+                    <p>Provider of spare parts, restoration accessories, and engine equipment for classic motorcycles from the 70s, 80s, and 90s.</p>
+                    <div class="footer-socials">
+                        <a href="#" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Public Menu</h4>
+                    <ul class="footer-links">
+                        <li><a href="../../index.html">Home</a></li>
+                        <li><a href="produk.html">Product Catalog</a></li>
+                        <li><a href="artikel.html">Articles & Tips</a></li>
+                        <li><a href="history.html">Track Order</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Popular Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="produk.html?category=mesin">Engine Components</a></li>
+                        <li><a href="produk.html?category=karburator">Carburetor</a></li>
+                        <li><a href="produk.html?category=knalpot">Chrome Exhaust</a></li>
+                        <li><a href="produk.html?category=kelistrikan">12V Electrical</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fa-solid fa-map-location-dot"></i> Surabaya, East Java, Indonesia</li>
+                        <li><i class="fa-solid fa-phone"></i> +62 812-3456-7890</li>
+                        <li><i class="fa-solid fa-envelope"></i> info@vintagevroom.id</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 VintageVroom. Made with <i class="fa-solid fa-heart text-primary"></i> by Andy Vintage for UI Workshop Final Project.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================================================
+       JAVASCRIPT CART CONTROL
+       ========================================================================== -->
+    <script src="../../assets/js/data.js"></script>
+    <script src="../../assets/js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const itemsTbody = document.getElementById('cart-items-tbody');
+            const cartContentWrapper = document.getElementById('cart-content-wrapper');
+            const emptyCartState = document.getElementById('empty-cart-state');
+            const clearCartBtn = document.getElementById('clear-cart-btn');
+
+            // Order Summary references
+            const summaryTotalQty = document.getElementById('summary-total-qty');
+            const summarySubtotal = document.getElementById('summary-subtotal');
+            const summaryTotal = document.getElementById('summary-total');
+
+            function renderCart() {
+                const cart = VintageVroomStorage.getCart();
+                const products = VintageVroomStorage.getProducts();
+
+                if (cart.length === 0) {
+                    cartContentWrapper.style.display = 'none';
+                    emptyCartState.style.display = 'block';
+                    return;
+                }
+
+                cartContentWrapper.style.display = 'flex';
+                emptyCartState.style.display = 'none';
+
+                itemsTbody.innerHTML = '';
+                let totalQty = 0;
+                let subtotal = 0;
+
+                cart.forEach(item => {
+                    const prodInfo = products.find(p => p.id === item.productId);
+                    const maxStock = prodInfo ? prodInfo.stock : 99;
+
+                    const formattedPrice = VintageVroomStorage.formatRupiah(item.price);
+                    const formattedSubtotal = VintageVroomStorage.formatRupiah(item.price * item.qty);
+                    
+                    totalQty += item.qty;
+                    subtotal += (item.price * item.qty);
+
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>
+                            <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                                <img src="../../${item.image}" alt="${item.name}" style="width: 55px; height: 45px; object-fit: cover; border: 1px solid var(--color-border); border-radius: var(--radius-sm);" onerror="this.src='https://placehold.co/100x80/2c1f0e/f5ecd7?text=Part'">
+                                <div>
+                                    <h4 style="font-size: 0.95rem; margin-bottom: 2px; font-family: var(--font-body); font-weight: 700;">${item.name}</h4>
+                                    <span style="font-size: 0.75rem; color: var(--color-text-muted);"><i class="fa-solid fa-motorcycle"></i> ${item.compatibility}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="font-weight: 600;">${formattedPrice}</td>
+                        <td>
+                            <div style="display: inline-flex; align-items: center; border: 1px solid var(--color-border); background-color: var(--color-surface); border-radius: var(--radius-sm); height: 32px;">
+                                <button class="qty-btn qty-minus" data-id="${item.productId}" style="width: 25px; height: 100%; cursor: pointer; text-align: center; font-weight: 700;">-</button>
+                                <input type="number" class="qty-field" data-id="${item.productId}" value="${item.qty}" min="1" max="${maxStock}" style="width: 35px; text-align: center; font-weight: 700; border: none; background: transparent; font-size: 0.85rem;" readonly>
+                                <button class="qty-btn qty-plus" data-id="${item.productId}" style="width: 25px; height: 100%; cursor: pointer; text-align: center; font-weight: 700;">+</button>
+                            </div>
+                        </td>
+                        <td style="font-weight: 700;" class="text-primary">${formattedSubtotal}</td>
+                        <td style="text-align: center;">
+                            <button class="remove-item-btn" data-id="${item.productId}" style="color: var(--color-danger); cursor: pointer; background: transparent; font-size: 1.1rem;" title="Remove Item">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </td>
+                    `;
+                    itemsTbody.appendChild(tr);
+                });
+
+                // Update summary card
+                summaryTotalQty.textContent = `${totalQty} Items`;
+                summarySubtotal.textContent = VintageVroomStorage.formatRupiah(subtotal);
+                summaryTotal.textContent = VintageVroomStorage.formatRupiah(subtotal);
+
+                // Bind elements action listeners
+                // Plus button
+                document.querySelectorAll('.qty-plus').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = parseInt(btn.getAttribute('data-id'));
+                        const currentCart = VintageVroomStorage.getCart();
+                        const item = currentCart.find(i => i.productId === id);
+                        if (item) {
+                            const result = VintageVroomStorage.addToCart(id, 1);
+                            if (result.success) {
+                                renderCart();
+                            } else {
+                                VintageVroomToast.show(result.message, 'danger');
+                            }
+                        }
+                    });
+                });
+
+                // Minus button
+                document.querySelectorAll('.qty-minus').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = parseInt(btn.getAttribute('data-id'));
+                        const currentCart = VintageVroomStorage.getCart();
+                        const itemIndex = currentCart.findIndex(i => i.productId === id);
+                        if (itemIndex > -1) {
+                            if (currentCart[itemIndex].qty > 1) {
+                                currentCart[itemIndex].qty -= 1;
+                            } else {
+                                // Prompt deletion
+                                currentCart.splice(itemIndex, 1);
+                            }
+                            VintageVroomStorage.saveCart(currentCart);
+                            renderCart();
+                        }
+                    });
+                });
+
+                // Remove item button
+                document.querySelectorAll('.remove-item-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = parseInt(btn.getAttribute('data-id'));
+                        const currentCart = VintageVroomStorage.getCart();
+                        const filtered = currentCart.filter(i => i.productId !== id);
+                        VintageVroomStorage.saveCart(filtered);
+                        renderCart();
+                        VintageVroomToast.show('Item removed from cart', 'success');
+                    });
+                });
+            }
+
+            // Clear whole cart
+            clearCartBtn.addEventListener('click', () => {
+                if (confirm('Are you sure you want to empty your entire shopping cart?')) {
+                    VintageVroomStorage.saveCart([]);
+                    renderCart();
+                    VintageVroomToast.show('Entire shopping cart emptied!', 'success');
+                }
+            });
+
+            // Initial execute
+            renderCart();
+        });
+    </script>
+</body>
+</html>

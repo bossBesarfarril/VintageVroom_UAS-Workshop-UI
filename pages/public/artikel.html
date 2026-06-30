@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kumpulan tips, trik perawatan, modifikasi, dan ulasan sejarah motor klasik terlengkap. Baca tips bengkel VintageVroom.">
+    <title>Tips & Artikel Bengkel Klasik | VintageVroom</title>
+    <!-- Fonts & Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/responsive.css">
+    <style>
+        .filter-tag {
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: 20px;
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        .filter-tag:hover, .filter-tag.active {
+            color: var(--color-bg);
+            background-color: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== -->
+    <header class="header">
+        <div class="container navbar">
+            <a href="../../index.html" class="logo">
+                <i class="fa-solid fa-motorcycle"></i> VintageVroom
+            </a>
+
+            <nav class="nav-menu">
+                <a href="../../index.html" class="nav-link">Home</a>
+                <a href="produk.html" class="nav-link">Catalog</a>
+                <a href="artikel.html" class="nav-link active">Articles</a>
+                <a href="history.html" class="nav-link">Track Order</a>
+                <a href="login.html" class="btn btn-sm btn-outline nav-admin-btn">
+                    <i class="fa-solid fa-user-shield"></i> Admin Panel
+                </a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="keranjang.html" class="cart-icon-btn" title="Keranjang Belanja">
+                    <i class="fa-solid fa-toolbox"></i>
+                    <span class="cart-badge" style="display: none;">0</span>
+                </a>
+                <button class="hamburger" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+       MAIN CONTENT - ARTICLES ARCHIVE
+       ========================================================================== -->
+    <main class="container section">
+        <ul class="breadcrumbs">
+            <li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
+            <li class="breadcrumb-item active">Workshop Articles</li>
+        </ul>
+
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: var(--spacing-xxl); flex-wrap: wrap; gap: var(--spacing-md);">
+            <div>
+                <h1 style="margin-bottom: var(--spacing-xs);">Restoration Tips & Journal</h1>
+                <p class="text-muted">Technical guides and inspiring articles on authentic retro motorcycles.</p>
+            </div>
+            
+            <!-- Search bar -->
+            <div style="width: 100%; max-width: 320px; position: relative;">
+                <input type="text" id="article-search" class="form-control" placeholder="Cari artikel..." style="padding-right: 35px;">
+                <i class="fa-solid fa-magnifying-glass" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--color-text-muted); pointer-events: none;"></i>
+            </div>
+        </div>
+
+        <!-- Category Tags filter -->
+        <div style="display: flex; gap: var(--spacing-sm); flex-wrap: wrap; margin-bottom: var(--spacing-xl);" id="article-categories">
+            <button class="filter-tag active" data-cat="all">All Articles</button>
+            <button class="filter-tag" data-cat="Tips Perawatan">Care Tips</button>
+            <button class="filter-tag" data-cat="Modifikasi">Modification</button>
+            <button class="filter-tag" data-cat="Review Motor">Review Motor</button>
+        </div>
+
+        <!-- Articles Grid -->
+        <div class="grid grid-3" id="articles-grid-container">
+            <!-- Dynamically populated via JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="no-articles-message" style="display: none; text-align: center; padding: var(--spacing-3xl) 0;">
+            <div style="font-size: 3rem; color: var(--color-text-muted); margin-bottom: var(--spacing-md);">
+                <i class="fa-solid fa-book-open-reader"></i>
+            </div>
+            <h3>Article Not Found</h3>
+            <p class="text-muted">Your search terms do not match any of our article titles.</p>
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 class="logo"><i class="fa-solid fa-motorcycle text-primary"></i> VintageVroom</h3>
+                    <p>Provider of spare parts, restoration accessories, and classic motorcycle engine components from the 70s, 80s, and 90s.</p>
+                    <div class="footer-socials">
+                        <a href="#" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Public Menu</h4>
+                    <ul class="footer-links">
+                        <li><a href="../../index.html">Home</a></li>
+                        <li><a href="produk.html">Product Catalog</a></li>
+                        <li><a href="artikel.html">Articles & Tips</a></li>
+                        <li><a href="history.html">Track Order</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Popular Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="produk.html?category=mesin">Engine Components</a></li>
+                        <li><a href="produk.html?category=karburator">Carburetors</a></li>
+                        <li><a href="produk.html?category=knalpot">Chrome Exhausts</a></li>
+                        <li><a href="produk.html?category=kelistrikan">12V Electrical</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fa-solid fa-map-location-dot"></i> Surabaya, Jawa Timur, Indonesia</li>
+                        <li><i class="fa-solid fa-phone"></i> +62 812-3456-7890</li>
+                        <li><i class="fa-solid fa-envelope"></i> info@vintagevroom.id</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 VintageVroom. Dibuat dengan <i class="fa-solid fa-heart text-primary"></i> oleh Andy Vintage untuk Tugas UAS Workshop UI.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================================================
+       JAVASCRIPT ARTICLES LIST CONTROLLERS
+       ========================================================================== -->
+    <script src="../../assets/js/data.js"></script>
+    <script src="../../assets/js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('article-search');
+            const gridContainer = document.getElementById('articles-grid-container');
+            const noArticlesMsg = document.getElementById('no-articles-message');
+            const catButtons = document.querySelectorAll('.filter-tag');
+
+            let selectedCat = 'all';
+
+            function renderArticles() {
+                const articles = VintageVroomStorage.getArticles();
+                const query = searchInput.value.toLowerCase().trim();
+
+                const filtered = articles.filter(art => {
+                    const matchesSearch = art.title.toLowerCase().includes(query) || art.excerpt.toLowerCase().includes(query);
+                    const matchesCategory = selectedCat === 'all' || art.category === selectedCat;
+                    return matchesSearch && matchesCategory;
+                });
+
+                gridContainer.innerHTML = '';
+                
+                if (filtered.length === 0) {
+                    gridContainer.style.display = 'none';
+                    noArticlesMsg.style.display = 'block';
+                } else {
+                    gridContainer.style.display = 'grid';
+                    noArticlesMsg.style.display = 'none';
+
+                    filtered.forEach(art => {
+                        const card = document.createElement('article');
+                        card.className = 'card reveal active';
+                        
+                        card.innerHTML = `
+                            <div class="card-img-wrapper">
+                                <img src="../../${art.thumbnail}" alt="${art.title}" class="card-img" onerror="this.src='https://placehold.co/400x250/2c1f0e/f5ecd7?text=Vintage+Article'">
+                            </div>
+                            <div class="card-content">
+                                <div style="display: flex; gap: var(--spacing-sm); margin-bottom: var(--spacing-sm); font-size: 0.75rem; color: var(--color-primary); font-weight: 700; text-transform: uppercase;">
+                                    <span><i class="fa-solid fa-folder"></i> ${art.category}</span>
+                                    <span>&bull;</span>
+                                    <span class="text-muted"><i class="fa-solid fa-calendar"></i> ${art.date}</span>
+                                </div>
+                                <h3 class="card-title" style="font-size: 1.25rem; line-height: 1.4; margin-bottom: var(--spacing-md);">${art.title}</h3>
+                                <p class="text-muted" style="font-size: 0.9rem; line-height: 1.5; margin-bottom: var(--spacing-md); flex-grow: 1;">${art.excerpt}</p>
+                                <a href="artikel-detail.html?slug=${art.slug}" class="btn btn-secondary btn-sm" style="align-self: flex-start; margin-top: auto;">
+                                    Baca Selengkapnya <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem;"></i>
+                                </a>
+                            </div>
+                        `;
+                        gridContainer.appendChild(card);
+                    });
+                }
+            }
+
+            // Bind inputs
+            searchInput.addEventListener('input', renderArticles);
+
+            catButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    catButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    selectedCat = btn.getAttribute('data-cat');
+                    renderArticles();
+                });
+            });
+
+            // Initial execution
+            renderArticles();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VintageVroom classic motorcycle spare part catalog. Find engine parts, electricals, exhausts, carburetors for CB100, RX-King, Astrea, Vespa, etc.">
+    <title>Classic Motorcycle Spare Part Catalog | VintageVroom</title>
+    <!-- Fonts & Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/responsive.css">
+</head>
+<body>
+
+    <!-- ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== -->
+    <header class="header">
+        <div class="container navbar">
+            <a href="../../index.html" class="logo">
+                <i class="fa-solid fa-motorcycle"></i> VintageVroom
+            </a>
+
+            <nav class="nav-menu">
+                <a href="../../index.html" class="nav-link">Home</a>
+                <a href="produk.html" class="nav-link active">Catalog</a>
+                <a href="artikel.html" class="nav-link">Articles</a>
+                <a href="history.html" class="nav-link">Track Order</a>
+                <a href="login.html" class="btn btn-sm btn-outline nav-admin-btn">
+                    <i class="fa-solid fa-user-shield"></i> Admin Panel
+                </a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="keranjang.html" class="cart-icon-btn" title="Shopping Cart">
+                    <i class="fa-solid fa-toolbox"></i>
+                    <span class="cart-badge" style="display: none;">0</span>
+                </a>
+                <button class="hamburger" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+       MAIN CONTENT - CATALOG PAGE
+       ========================================================================== -->
+    <main class="container section">
+        <ul class="breadcrumbs">
+            <li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
+            <li class="breadcrumb-item active">Product Catalog</li>
+        </ul>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-xl); flex-wrap: wrap; gap: var(--spacing-md);">
+            <div>
+                <h1 style="margin-bottom: var(--spacing-xs);">Classic Spare Parts</h1>
+                <p class="text-muted" id="catalog-count-text">Showing all products...</p>
+            </div>
+            
+            <button class="btn btn-secondary filter-toggle-btn" style="display: none; align-items: center; gap: var(--spacing-sm);">
+                <i class="fa-solid fa-filter"></i> Filter Products
+            </button>
+        </div>
+
+        <div class="catalog-layout" style="display: flex; gap: var(--spacing-xl); align-items: flex-start;">
+            <!-- 1. FILTER SIDEBAR -->
+            <aside class="catalog-sidebar" style="width: 280px; flex-shrink: 0; background-color: var(--color-surface-card); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--spacing-lg);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-lg);">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0;"><i class="fa-solid fa-sliders text-primary"></i> Filter</h3>
+                    <button id="reset-filters-btn" style="font-size: 0.8rem; color: var(--color-primary); cursor: pointer; text-decoration: underline; background: none; border: none;">Reset</button>
+                </div>
+
+                <!-- Filter: Search -->
+                <div class="form-group">
+                    <label class="form-label" for="search-input">Search Part Name</label>
+                    <div style="position: relative;">
+                        <input type="text" id="search-input" class="form-control" placeholder="Example: carburetor..." style="padding-right: 35px;">
+                        <i class="fa-solid fa-magnifying-glass" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--color-text-muted); pointer-events: none;"></i>
+                    </div>
+                </div>
+
+                <hr style="border: none; border-bottom: 1px solid var(--color-border); margin: var(--spacing-lg) 0;">
+
+                <!-- Filter: Kategori -->
+                <div class="mb-4">
+                    <h4 style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--spacing-md);">Category</h4>
+                    <div style="display: flex; flex-direction: column; gap: var(--spacing-sm);" id="category-filter-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <hr style="border: none; border-bottom: 1px solid var(--color-border); margin: var(--spacing-lg) 0;">
+
+                <!-- Filter: Kecocokan Motor -->
+                <div class="mb-4">
+                    <h4 style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--spacing-md);">Motorcycle Compatibility</h4>
+                    <div style="display: flex; flex-direction: column; gap: var(--spacing-sm);" id="motor-filter-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <hr style="border: none; border-bottom: 1px solid var(--color-border); margin: var(--spacing-lg) 0;">
+
+                <!-- Filter: Harga Maksimal -->
+                <div>
+                    <h4 style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--spacing-md);">Max Price</h4>
+                    <input type="range" id="price-range" min="0" max="500000" step="10000" value="500000" style="width: 100%; accent-color: var(--color-primary); cursor: pointer;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-top: var(--spacing-xs); color: var(--color-text-muted);">
+                        <span>Rp 0</span>
+                        <span id="price-range-val" class="text-primary" style="font-weight: 700;">Rp 500.000</span>
+                    </div>
+                </div>
+
+                <!-- Mobile Filter Close Trigger -->
+                <button class="btn btn-primary btn-block mt-4 filter-close-btn" style="display: none;">Apply Filter</button>
+            </aside>
+
+            <!-- 2. PRODUCT GRID SECTION -->
+            <div style="flex-grow: 1;">
+                <!-- Toolbar: Sorting -->
+                <div style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: var(--spacing-lg); background-color: var(--color-surface); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+                    <div style="display: flex; align-items: center; gap: var(--spacing-sm);">
+                        <label for="sort-select" style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase; color: var(--color-text-muted);">Sort by:</label>
+                        <select id="sort-select" class="form-control" style="width: auto; padding: var(--spacing-xs) var(--spacing-lg) var(--spacing-xs) var(--spacing-sm); font-size: 0.85rem;">
+                            <option value="default">Default</option>
+                            <option value="price-asc">Price: Lowest</option>
+                            <option value="price-desc">Price: Highest</option>
+                            <option value="stock-desc">Stock: Most</option>
+                            <option value="name-asc">Name: A-Z</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="grid grid-3" id="catalog-products-grid">
+                    <!-- Populated dynamically via JavaScript -->
+                </div>
+
+                <div id="no-products-message" style="display: none; text-align: center; padding: var(--spacing-3xl) 0;">
+                    <div style="font-size: 3rem; color: var(--color-text-muted); margin-bottom: var(--spacing-md);">
+                        <i class="fa-solid fa-toolbox"></i>
+                    </div>
+                    <h3>Spare Part Not Found</h3>
+                    <p class="text-muted">Try changing your search keyword or turn off some filters.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Sidebar Drawer Mobile Overlay -->
+    <div class="sidebar-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); backdrop-filter: blur(2px); z-index: 998;"></div>
+
+    <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 class="logo"><i class="fa-solid fa-motorcycle text-primary"></i> VintageVroom</h3>
+                    <p>Provider of spare parts, restoration accessories, and classic motorcycle engine equipment from the 70s, 80s to 90s era.</p>
+                    <div class="footer-socials">
+                        <a href="#" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Public Menu</h4>
+                    <ul class="footer-links">
+                        <li><a href="../../index.html">Home</a></li>
+                        <li><a href="produk.html">Product Catalog</a></li>
+                        <li><a href="artikel.html">Articles & Tips</a></li>
+                        <li><a href="history.html">Track Order</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Popular Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="produk.html?category=engine">Engine Components</a></li>
+                        <li><a href="produk.html?category=carburetor">Carburetors</a></li>
+                        <li><a href="produk.html?category=exhaust">Chrome Exhausts</a></li>
+                        <li><a href="produk.html?category=electrical">12V Electricals</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fa-solid fa-map-location-dot"></i> Surabaya, East Java, Indonesia</li>
+                        <li><i class="fa-solid fa-phone"></i> +62 812-3456-7890</li>
+                        <li><i class="fa-solid fa-envelope"></i> info@vintagevroom.id</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 VintageVroom. Made with <i class="fa-solid fa-heart text-primary"></i> by Andy Vintage for UI Workshop Final Exam Project.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================================================
+       JAVASCRIPT CATALOG CONTROLLERS
+       ========================================================================== -->
+    <script src="../../assets/js/data.js"></script>
+    <script src="../../assets/js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get URL category filter if exists
+            const urlParams = new URLSearchParams(window.location.search);
+            const initialCategory = urlParams.get('category');
+
+            // Elements references
+            const categoryFilterContainer = document.getElementById('category-filter-list');
+            const motorFilterContainer = document.getElementById('motor-filter-list');
+            const productsGrid = document.getElementById('catalog-products-grid');
+            const noProductsMessage = document.getElementById('no-products-message');
+            const countText = document.getElementById('catalog-count-text');
+            const searchInput = document.getElementById('search-input');
+            const priceRange = document.getElementById('price-range');
+            const priceRangeVal = document.getElementById('price-range-val');
+            const sortSelect = document.getElementById('sort-select');
+            const resetBtn = document.getElementById('reset-filters-btn');
+
+            // Responsive filter mobile elements
+            const filterToggleBtn = document.querySelector('.filter-toggle-btn');
+            const sidebar = document.querySelector('.catalog-sidebar');
+            const sidebarOverlay = document.querySelector('.sidebar-overlay');
+            const filterCloseBtn = document.querySelector('.filter-close-btn');
+
+            // 1. Mobile Filter Toggle Show/Hide
+            if (filterToggleBtn) {
+                filterToggleBtn.addEventListener('click', () => {
+                    sidebar.classList.add('active');
+                    sidebarOverlay.style.display = 'block';
+                });
+                
+                const closeSidebar = () => {
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.style.display = 'none';
+                };
+                
+                sidebarOverlay.addEventListener('click', closeSidebar);
+                filterCloseBtn.addEventListener('click', closeSidebar);
+            }
+
+            // 2. Populate Filters in UI
+            // Categories checkboxes
+            const allCatItem = document.createElement('label');
+            allCatItem.className = 'checkbox-label';
+            allCatItem.innerHTML = `<input type="radio" name="category-group" value="all" ${(!initialCategory || initialCategory === 'all') ? 'checked' : ''}> <span>All Categories</span>`;
+            categoryFilterContainer.appendChild(allCatItem);
+
+            VintageVroomDB.categories.forEach(cat => {
+                const label = document.createElement('label');
+                label.className = 'checkbox-label';
+                const checked = (initialCategory === cat.id) ? 'checked' : '';
+                label.innerHTML = `<input type="radio" name="category-group" value="${cat.id}" ${checked}> <span>${cat.name}</span>`;
+                categoryFilterContainer.appendChild(label);
+            });
+
+            // Motorcycles checkboxes
+            VintageVroomDB.compatibility.forEach(motor => {
+                const label = document.createElement('label');
+                label.className = 'checkbox-label';
+                label.innerHTML = `<input type="checkbox" class="motor-checkbox" value="${motor}"> <span>${motor}</span>`;
+                motorFilterContainer.appendChild(label);
+            });
+
+            // 3. Filtering and Rendering Logic
+            function renderProducts() {
+                const products = VintageVroomStorage.getProducts();
+                
+                // Get filter states
+                const searchQuery = searchInput.value.toLowerCase().trim();
+                const selectedCategory = document.querySelector('input[name="category-group"]:checked').value;
+                const maxPrice = parseInt(priceRange.value);
+                const sortValue = sortSelect.value;
+                
+                // Get selected motorbikes
+                const selectedMotors = [];
+                document.querySelectorAll('.motor-checkbox:checked').forEach(cb => {
+                    selectedMotors.push(cb.value);
+                });
+
+                // Filter logic
+                let filtered = products.filter(prod => {
+                    // Match Search Query
+                    const matchesSearch = prod.name.toLowerCase().includes(searchQuery) || 
+                                          prod.description.toLowerCase().includes(searchQuery);
+                    
+                    // Match Category
+                    const matchesCategory = selectedCategory === 'all' || prod.category === selectedCategory;
+                    
+                    // Match Price Range
+                    const matchesPrice = prod.price <= maxPrice;
+                    
+                    // Match Motorcycle Compatibility
+                    let matchesMotor = true;
+                    if (selectedMotors.length > 0) {
+                        matchesMotor = prod.compatibility.some(comp => selectedMotors.includes(comp));
+                    }
+
+                    return matchesSearch && matchesCategory && matchesPrice && matchesMotor;
+                });
+
+                // Sort logic
+                if (sortValue === 'price-asc') {
+                    filtered.sort((a, b) => a.price - b.price);
+                } else if (sortValue === 'price-desc') {
+                    filtered.sort((a, b) => b.price - a.price);
+                } else if (sortValue === 'stock-desc') {
+                    filtered.sort((a, b) => b.stock - a.stock);
+                } else if (sortValue === 'name-asc') {
+                    filtered.sort((a, b) => a.name.localeCompare(b.name));
+                }
+
+                // Render grid
+                productsGrid.innerHTML = '';
+                
+                if (filtered.length === 0) {
+                    productsGrid.style.display = 'none';
+                    noProductsMessage.style.display = 'block';
+                    countText.textContent = '0 products found';
+                } else {
+                    productsGrid.style.display = 'grid';
+                    noProductsMessage.style.display = 'none';
+                    countText.textContent = `Showing ${filtered.length} products`;
+
+                    filtered.forEach(prod => {
+                        const card = document.createElement('div');
+                        card.className = 'card reveal active'; // Reveal active directly here
+                        
+                        const formattedPrice = VintageVroomStorage.formatRupiah(prod.price);
+                        const stockBadge = prod.stock > 0 
+                            ? `<span class="badge badge-success">Stock: ${prod.stock}</span>` 
+                            : `<span class="badge badge-danger">Out of Stock</span>`;
+
+                        card.innerHTML = `
+                            <div class="card-img-wrapper" style="cursor: pointer;" onclick="window.location.href='produk-detail.html?slug=${prod.slug}'">
+                                <img src="../../${prod.image}" alt="${prod.name}" class="card-img" onerror="this.src='https://placehold.co/400x300/2c1f0e/f5ecd7?text=${encodeURIComponent(prod.name)}'">
+                                <div class="card-badge-top">${stockBadge}</div>
+                            </div>
+                            <div class="card-content">
+                                <span class="card-category" style="cursor: pointer;" onclick="window.location.href='produk-detail.html?slug=${prod.slug}'">${prod.category}</span>
+                                <h3 class="card-title" style="cursor: pointer;" onclick="window.location.href='produk-detail.html?slug=${prod.slug}'">${prod.name}</h3>
+                                <div class="card-compatibility">
+                                    <i class="fa-solid fa-circle-info"></i> ${prod.compatibility.slice(0, 2).join(', ')}
+                                </div>
+                                <div class="card-footer">
+                                    <span class="card-price">${formattedPrice}</span>
+                                    <button class="btn btn-primary btn-sm add-to-cart-btn" data-id="${prod.id}" ${prod.stock === 0 ? 'disabled' : ''}>
+                                        <i class="fa-solid fa-cart-plus"></i> + Cart
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                        productsGrid.appendChild(card);
+                    });
+
+                    // Re-bind Add to Cart event listeners
+                    document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const prodId = parseInt(btn.getAttribute('data-id'));
+                            const result = VintageVroomStorage.addToCart(prodId, 1);
+                            if (result.success) {
+                                VintageVroomToast.show(result.message, 'success');
+                                // Quick refresh to update stock count displayed
+                                renderProducts();
+                            } else {
+                                VintageVroomToast.show(result.message, 'danger');
+                            }
+                        });
+                    });
+                }
+            }
+
+            // 4. Bind Input Event Listeners
+            searchInput.addEventListener('input', renderProducts);
+            
+            // Radio categories change
+            document.querySelectorAll('input[name="category-group"]').forEach(rad => {
+                rad.addEventListener('change', renderProducts);
+            });
+
+            // Checkboxes motors change
+            motorFilterContainer.addEventListener('change', (e) => {
+                if (e.target.classList.contains('motor-checkbox')) {
+                    renderProducts();
+                }
+            });
+
+            // Range slider price change
+            priceRange.addEventListener('input', (e) => {
+                const formattedVal = VintageVroomStorage.formatRupiah(e.target.value);
+                priceRangeVal.textContent = formattedVal;
+                renderProducts();
+            });
+
+            // Sort changed
+            sortSelect.addEventListener('change', renderProducts);
+
+            // Reset filters click
+            resetBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                document.querySelector('input[name="category-group"][value="all"]').checked = true;
+                document.querySelectorAll('.motor-checkbox').forEach(cb => cb.checked = false);
+                priceRange.value = 500000;
+                priceRangeVal.textContent = 'Rp 500.000';
+                sortSelect.value = 'default';
+                renderProducts();
+                VintageVroomToast.show('Filters cleared successfully', 'success');
+            });
+
+            // Initial render
+            renderProducts();
+        });
+    </script>
+</body>
+</html>

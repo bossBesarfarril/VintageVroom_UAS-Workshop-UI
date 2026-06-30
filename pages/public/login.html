@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Halaman login dan daftar akun pelanggan / administrator VintageVroom.">
+    <title>Masuk & Daftar Akun | VintageVroom</title>
+    <!-- Fonts & Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/responsive.css">
+    <style>
+        .auth-container {
+            width: 100%;
+            max-width: 450px;
+            margin: var(--spacing-xxl) auto;
+            background-color: var(--color-surface-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+        .auth-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--color-border);
+            background-color: var(--color-surface);
+        }
+        .auth-tab-btn {
+            flex: 1;
+            padding: var(--spacing-md);
+            text-align: center;
+            cursor: pointer;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            transition: var(--transition-fast);
+        }
+        .auth-tab-btn:hover {
+            color: var(--color-text);
+        }
+        .auth-tab-btn.active {
+            color: var(--color-primary);
+            border-bottom: 2px solid var(--color-primary);
+            background-color: var(--color-surface-card);
+        }
+        .auth-form-body {
+            padding: var(--spacing-xl);
+        }
+        .auth-form {
+            display: none;
+        }
+        .auth-form.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== -->
+    <header class="header">
+        <div class="container navbar">
+            <a href="../../index.html" class="logo">
+                <i class="fa-solid fa-motorcycle"></i> VintageVroom
+            </a>
+
+            <nav class="nav-menu">
+                <a href="../../index.html" class="nav-link">Home</a>
+                <a href="produk.html" class="nav-link">Catalog</a>
+                <a href="artikel.html" class="nav-link">Articles</a>
+                <a href="history.html" class="nav-link">Track Order</a>
+                <a href="login.html" class="btn btn-sm btn-outline nav-admin-btn active">
+                    <i class="fa-solid fa-user-shield"></i> Admin Panel
+                </a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="keranjang.html" class="cart-icon-btn" title="Keranjang Belanja">
+                    <i class="fa-solid fa-toolbox"></i>
+                    <span class="cart-badge" style="display: none;">0</span>
+                </a>
+                <button class="hamburger" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+       MAIN CONTENT - AUTH PAGES
+       ========================================================================== -->
+    <main class="container section">
+        <div class="auth-container">
+            <div class="auth-tabs">
+                <div class="auth-tab-btn active" data-target="login-form">Masuk</div>
+                <div class="auth-tab-btn" data-target="register-form">Daftar</div>
+            </div>
+            
+            <div class="auth-form-body">
+                <!-- 1. LOGIN FORM -->
+                <form id="login-form" class="auth-form active">
+                    <div style="background-color: var(--color-surface); border-left: 4px solid var(--color-primary); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--radius-sm); margin-bottom: var(--spacing-lg); font-size: 0.8rem;" class="text-muted">
+                        <p style="margin-bottom: 2px;">💡 <strong>Info Akun Demo Admin:</strong></p>
+                        <p style="margin-bottom: 0;">Email: <strong class="text-primary">andy@vintagevroom.id</strong> (Password bebas)</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="login-email">Email / Username</label>
+                        <input type="email" id="login-email" class="form-control" placeholder="Tulis email Anda..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="login-password">Kata Sandi</label>
+                        <input type="password" id="login-password" class="form-control" placeholder="Tulis password..." required>
+                    </div>
+
+                    <div class="form-group" style="display: flex; justify-content: space-between; align-items: center; margin-top: var(--spacing-md);">
+                        <label class="checkbox-label">
+                            <input type="checkbox"> <span>Ingat Saya</span>
+                        </label>
+                        <a href="#" style="font-size: 0.8rem;" onclick="alert('Demo reset password dikirim!')">Lupa Sandi?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block mt-4" style="height: 44px;">
+                        Masuk Ke Akun <i class="fa-solid fa-right-to-bracket"></i>
+                    </button>
+                </form>
+
+                <!-- 2. REGISTER FORM -->
+                <form id="register-form" class="auth-form">
+                    <div class="form-group">
+                        <label class="form-label" for="reg-name">Nama Lengkap</label>
+                        <input type="text" id="reg-name" class="form-control" placeholder="Contoh: Ahmad Subarjo" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="reg-email">Alamat Email</label>
+                        <input type="email" id="reg-email" class="form-control" placeholder="nama@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="reg-password">Kata Sandi</label>
+                        <input type="password" id="reg-password" class="form-control" placeholder="Minimal 6 karakter" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="reg-confirm">Konfirmasi Sandi</label>
+                        <input type="password" id="reg-confirm" class="form-control" placeholder="Ulangi password..." required>
+                    </div>
+
+                    <label class="checkbox-label mt-3">
+                        <input type="checkbox" required> <span style="font-size: 0.8rem;" class="text-muted">Saya menyetujui Ketentuan Layanan & Kebijakan Privasi VintageVroom.</span>
+                    </label>
+
+                    <button type="submit" class="btn btn-primary btn-block mt-4" style="height: 44px;">
+                        Daftar Akun Baru <i class="fa-solid fa-user-plus"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 class="logo"><i class="fa-solid fa-motorcycle text-primary"></i> VintageVroom</h3>
+                    <p>Provider of spare parts, restoration accessories, and classic motorcycle engine components from the 70s, 80s, and 90s.</p>
+                    <div class="footer-socials">
+                        <a href="#" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Public Menu</h4>
+                    <ul class="footer-links">
+                        <li><a href="../../index.html">Home</a></li>
+                        <li><a href="produk.html">Product Catalog</a></li>
+                        <li><a href="artikel.html">Articles & Tips</a></li>
+                        <li><a href="history.html">Track Order</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Popular Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="produk.html?category=mesin">Engine Components</a></li>
+                        <li><a href="produk.html?category=karburator">Carburetors</a></li>
+                        <li><a href="produk.html?category=knalpot">Chrome Exhausts</a></li>
+                        <li><a href="produk.html?category=kelistrikan">12V Electrical</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fa-solid fa-map-location-dot"></i> Surabaya, Jawa Timur, Indonesia</li>
+                        <li><i class="fa-solid fa-phone"></i> +62 812-3456-7890</li>
+                        <li><i class="fa-solid fa-envelope"></i> info@vintagevroom.id</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 VintageVroom. Dibuat dengan <i class="fa-solid fa-heart text-primary"></i> oleh Andy Vintage untuk Tugas UAS Workshop UI.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================================================
+       JAVASCRIPT AUTH CONTROL
+       ========================================================================== -->
+    <script src="../../assets/js/data.js"></script>
+    <script src="../../assets/js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.auth-tab-btn');
+            const forms = document.querySelectorAll('.auth-form');
+
+            // 1. Switch between Login & Register tabs
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.getAttribute('data-target');
+                    
+                    tabs.forEach(t => t.classList.remove('active'));
+                    forms.forEach(f => f.classList.remove('active'));
+
+                    tab.classList.add('active');
+                    document.getElementById(target).classList.add('active');
+                });
+            });
+
+            // 2. Login Form handler
+            const loginForm = document.getElementById('login-form');
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('login-email').value;
+
+                if (email === 'andy@vintagevroom.id') {
+                    VintageVroomToast.show('Selamat datang Admin, mengalihkan...', 'success');
+                    setTimeout(() => {
+                        window.location.href = '../admin/dashboard.html';
+                    }, 1500);
+                } else {
+                    VintageVroomToast.show('Berhasil masuk! Selamat belanja.', 'success');
+                    setTimeout(() => {
+                        window.location.href = '../../index.html';
+                    }, 1500);
+                }
+            });
+
+            // 3. Register Form handler
+            const registerForm = document.getElementById('register-form');
+            registerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const name = document.getElementById('reg-name').value;
+                const email = document.getElementById('reg-email').value;
+                const pass = document.getElementById('reg-password').value;
+                const confPass = document.getElementById('reg-confirm').value;
+
+                if (pass !== confPass) {
+                    VintageVroomToast.show('Konfirmasi sandi tidak sesuai!', 'danger');
+                    return;
+                }
+
+                // Add to mock users database
+                const users = VintageVroomStorage.getUsers();
+                const date = new Date();
+                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'];
+                const formattedJoined = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+
+                const newUser = {
+                    id: users.length + 1,
+                    name: name,
+                    email: email,
+                    role: 'user',
+                    joined: formattedJoined,
+                    status: 'aktif'
+                };
+
+                users.push(newUser);
+                VintageVroomStorage.saveUsers(users);
+
+                VintageVroomToast.show('Pendaftaran berhasil! Mengalihkan...', 'success');
+                setTimeout(() => {
+                    window.location.href = '../../index.html';
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>
